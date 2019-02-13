@@ -19,5 +19,6 @@ namespace Deployer.FileSystem
         Task RemovePartition(Partition partition);
         Task<ICollection<Disk>> GetDisks();
         Task<ICollection<DriverMetadata>> GetDrivers(string path);
+        Task UpdateStorageCache();
     }    
 }

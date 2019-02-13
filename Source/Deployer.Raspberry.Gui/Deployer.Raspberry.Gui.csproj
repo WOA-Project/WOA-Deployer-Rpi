@@ -300,6 +300,7 @@
   <ItemGroup>
     <None Include="..\Deployer.Raspberry\Core\Tools\Etcher-Cli\x64\etcher.exe">
       <Link>Core\Tools\Etcher-Cli\x64\etcher.exe</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -323,6 +324,7 @@
   <ItemGroup>
     <None Include="..\Deployer.Raspberry\Core\Tools\Etcher-Cli\x86\etcher.exe">
       <Link>Core\Tools\Etcher-Cli\x86\etcher.exe</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>

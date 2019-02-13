@@ -6,7 +6,7 @@ using Deployer.FileSystem;
 
 namespace Deployer.Execution.Testing
 {
-    public class TestLowLevelApi : ILowLevelApi
+    public class TestLowLevelApi :  ILowLevelApi
     {
         public Task ResizePartition(Partition partition, ByteSize sizeInBytes)
         {
@@ -109,6 +109,11 @@ namespace Deployer.Execution.Testing
         }
 
         public Task<ICollection<DriverMetadata>> GetDrivers(string path)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateStorageCache()
         {
             throw new NotImplementedException();
         }

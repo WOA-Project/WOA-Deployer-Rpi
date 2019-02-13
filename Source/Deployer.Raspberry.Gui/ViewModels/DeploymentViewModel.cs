@@ -21,10 +21,10 @@ namespace Deployer.Raspberry.Gui.ViewModels
         private DiskViewModel selectedDisk;
         private readonly ObservableAsPropertyHelper<IEnumerable<DiskViewModel>> disks;
 
-        public DeploymentViewModel(
+        public DeploymentViewModel(IDeviceProvider deviceProvider,
             IWindowsOptionsProvider optionsProvider,
             IWoaDeployer deployer, UIServices uiServices, AdvancedViewModel advancedViewModel,
-            WimPickViewModel wimPickViewModel, ILowLevelApi lowLevel)
+            WimPickViewModel wimPickViewModel, ILowLevelApi lowLevelApi)
         {
             this.optionsProvider = optionsProvider;
             this.deployer = deployer;
@@ -41,12 +41,14 @@ namespace Deployer.Raspberry.Gui.ViewModels
             isBusy = IsBusyObservable.ToProperty(this, model => model.IsBusy);
 
             RefreshDisksCommandWrapper = new CommandWrapper<Unit, ICollection<Disk>>(this,
-                ReactiveCommand.CreateFromTask(lowLevel.GetDisks), uiServices.DialogService);
+                ReactiveCommand.CreateFromTask(lowLevelApi.GetDisks), uiServices.DialogService);
             disks = RefreshDisksCommandWrapper.Command
                 .Select(x => x
                     .Where(y => !y.IsBoot && !y.IsSystem && !y.IsOffline)
                     .Select(disk => new DiskViewModel(disk)))
                 .ToProperty(this, x => x.Disks);
+
+            this.WhenAnyValue(x => x.SelectedDisk).Where(x => x != null).Subscribe(x => deviceProvider.Device = new RaspberryPi(lowLevelApi, x.Disk));
         }
 
         public IEnumerable<DiskViewModel> Disks => disks.Value;
@@ -81,5 +83,5 @@ namespace Deployer.Raspberry.Gui.ViewModels
 
         public CommandWrapper<Unit, Unit> FullInstallWrapper { get; set; }
         public IObservable<bool> IsBusyObservable { get; }
-    }
+    }    
 }

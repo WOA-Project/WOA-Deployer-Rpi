@@ -15,6 +15,8 @@
     <DockPanel>
         <Button DockPanel.Dock="Bottom" Margin="15" HorizontalAlignment="Center" Content="Close" Click="OnClick" />
         <FlowDocumentScrollViewer Margin="10"
+                                  FontFamily="Arial"
+                                  FontSize="20"
                                   Document="{Binding Text, Converter={StaticResource TextToFlowDocumentConverter}}" />
     </DockPanel>
 </mah:MetroWindow>

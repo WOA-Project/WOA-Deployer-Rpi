@@ -8,18 +8,20 @@ namespace Deployer.Raspberry
 {
     public class RaspberryPathBuilder : IPathBuilder
     {
-        private readonly IDevice device;
+        private readonly IDeviceProvider deviceProvider;
 
-        public RaspberryPathBuilder(IDevice device)
+        public RaspberryPathBuilder(IDeviceProvider deviceProvider)
         {
-            this.device = device;
+            this.deviceProvider = deviceProvider;
         }
 
         public async Task<string> Replace(string str)
         {
+            var deviceProviderDevice = deviceProvider.Device;
+
             IDictionary<string, Func<Task<string>>> mappings = new Dictionary<string, Func<Task<string>>>()
             {
-                { "WindowsARM", async () => (await device.GetWindowsVolume()).RootDir.Name },
+                { "WindowsARM", async () => (await deviceProviderDevice.GetWindowsVolume()).RootDir.Name},
             };
 
             var matching = mappings.Keys.FirstOrDefault(s => str.StartsWith(s, StringComparison.OrdinalIgnoreCase));

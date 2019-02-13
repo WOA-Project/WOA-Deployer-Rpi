@@ -1,6 +1,5 @@
 using System;
-using System.Reactive;
-using System.Threading.Tasks;
+using System.Reactive.Linq;
 using ByteSizeLib;
 using Deployer.Gui.Common;
 using Deployer.Gui.Core;
@@ -10,25 +9,20 @@ namespace Deployer.Raspberry.Gui.ViewModels
 {
     public class AdvancedViewModel : ReactiveObject, IBusy
     {
-        private readonly UIServices uiServices;
         private readonly ISettingsService settingsService;
-        private readonly IWoaDeployer autoDeployer;
-        public CommandWrapper<Unit, Unit> InstallGpuWrapper { get; set; }
 
         private readonly ObservableAsPropertyHelper<ByteSize> sizeReservedForWindows;
 
-        public AdvancedViewModel(UIServices uiServices, ISettingsService settingsService, IWoaDeployer autoDeployer)
+        public AdvancedViewModel(ISettingsService settingsService)
         {
-            this.uiServices = uiServices;
             this.settingsService = settingsService;
-            this.autoDeployer = autoDeployer;
-     
+
 
             sizeReservedForWindows =
                 this.WhenAnyValue(x => x.GbsReservedForWindows, ByteSize.FromGigaBytes)
                     .ToProperty(this, x => x.SizeReservedForWindows);
 
-            IsBusyObservable = InstallGpuWrapper.Command.IsExecuting;
+            IsBusyObservable = Observable.Return(false);
         }
 
         public ByteSize SizeReservedForWindows => sizeReservedForWindows.Value;
@@ -44,10 +38,6 @@ namespace Deployer.Raspberry.Gui.ViewModels
             }
         }
 
-
-
-        public IObservable<bool> IsBusyObservable { get; }
-
         public bool UseCompactDeployment
         {
             get => settingsService.UseCompactDeployment;
@@ -58,5 +48,7 @@ namespace Deployer.Raspberry.Gui.ViewModels
                 this.RaisePropertyChanged(nameof(UseCompactDeployment));
             }
         }
+
+        public IObservable<bool> IsBusyObservable { get; }
     }
 }

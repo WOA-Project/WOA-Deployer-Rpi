@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Deployer.FileSystem;
+using Deployer.Raspberry;
 using Deployer.Services;
 using Serilog;
 
@@ -9,24 +10,29 @@ namespace Deployer
     public class WindowsDeployer : IWindowsDeployer
     {
         private readonly IWindowsOptionsProvider optionsProvider;
-        private readonly IDevice phone;
+        private readonly IDeviceProvider deviceProvider;
         private readonly IWindowsImageService imageService;
         private readonly IBootCreator bootCreator;
         private readonly IObserver<double> progressObserver;
+        private IDevice device;
 
-        public WindowsDeployer(IWindowsOptionsProvider optionsProvider, IDevice phone, IWindowsImageService imageService, IBootCreator bootCreator, IObserver<double> progressObserver)
+        public WindowsDeployer(IWindowsOptionsProvider optionsProvider, IDeviceProvider deviceProvider, IWindowsImageService imageService, IBootCreator bootCreator, IObserver<double> progressObserver)
         {
             this.optionsProvider = optionsProvider;
-            this.phone = phone;
+            this.deviceProvider = deviceProvider;
             this.imageService = imageService;
             this.bootCreator = bootCreator;
-            this.progressObserver = progressObserver;
+            this.progressObserver = progressObserver;            
         }
 
         public async Task Deploy()
         {
+            Log.Information("Preparing for Windows deployment");
+            device = deviceProvider.Device;
+
             var options = optionsProvider.Options;
-            await imageService.ApplyImage(await phone.GetWindowsVolume(), options.ImagePath, options.ImageIndex, options.UseCompact, progressObserver);
+            var windowsVolume = await device.GetWindowsVolume();
+            await imageService.ApplyImage(windowsVolume, options.ImagePath, options.ImageIndex, options.UseCompact, progressObserver);
             await MakeBootable();
         }
 
@@ -34,12 +40,12 @@ namespace Deployer
         {
             Log.Verbose("Making Windows installation bootable...");
 
-            var boot = await phone.GetBootVolume();
-            var windows = await phone.GetWindowsVolume();
+            var boot = await device.GetBootVolume();
+            var windows = await device.GetWindowsVolume();
 
             await bootCreator.MakeBootable(boot, windows);
             await boot.Partition.SetGptType(PartitionType.Esp);
-            var updatedBootVolume = await phone.GetBootVolume();
+            var updatedBootVolume = await device.GetBootVolume();
 
             if (updatedBootVolume != null)
             {

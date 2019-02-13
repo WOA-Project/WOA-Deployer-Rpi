@@ -20,7 +20,7 @@ namespace Deployer.Tasks
         public async Task Execute()
         {
             await preparer.Prepare(await device.GetDeviceDisk());
-            await windowsDeployer.Deploy();            
+            await windowsDeployer.Deploy();
         }
     }
 }

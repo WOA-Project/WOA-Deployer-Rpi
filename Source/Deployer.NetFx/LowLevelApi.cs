@@ -82,7 +82,7 @@ namespace Deployer.Filesystem.FullFx
             return await volumes;
         }
 
-        private Task UpdateStorageCache()
+        public Task UpdateStorageCache()
         {
             ps.Commands.Clear();
             ps.AddCommand($@"Update-HostStorageCache");

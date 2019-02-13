@@ -137,7 +137,7 @@ namespace Deployer.Lumia
             Log.Verbose("Cleanup of possible previous Windows 10 ARM64 installation...");
 
             await RemovePartition("Reserved", await (await GetDeviceDisk()).GetReservedPartition());
-            await RemovePartition("WoA ESP", await DeviceMixin.GetBootPartition(this));
+            await RemovePartition("WoA ESP", await this.GetBootPartition());
             var winVol = await GetWindowsVolume();
             await RemovePartition("WoA", winVol?.Partition);
         }
