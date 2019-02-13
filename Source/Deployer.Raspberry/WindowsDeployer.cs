@@ -24,7 +24,7 @@ namespace Deployer.Raspberry
         private const string BootPartitionLabel = "BOOT";
         private const string WindowsPartitonLabel = "WindowsARM";
 
-        public WindowsDeployer(IWindowsOptionsProvider optionsProvider, IPhone phone, IWindowsImageService imageService, IBootCreator bootCreator, IEnumerable<ISpaceAllocator> spaceAllocators,  IObserver<double> progressObserver)
+        public WindowsDeployer(IWindowsOptionsProvider optionsProvider, IDiskLayoutBuilder diskLayoutBuilder, IPhone phone, IWindowsImageService imageService, IBootCreator bootCreator, IEnumerable<ISpaceAllocator> spaceAllocators,  IObserver<double> progressObserver)
         {
             this.optionsProvider = optionsProvider;
             this.phone = phone;

@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                  xmlns:xaml="clr-namespace:Markdown.Xaml;assembly=Markdown.Xaml"
-        mc:Ignorable="d"
+                 xmlns:viewModels="clr-namespace:Deployer.Raspberry.Gui.ViewModels"
+                 mc:Ignorable="d"
         Title="{Binding Title}" Width="900" MaxHeight="700" SizeToContent="Height" WindowStartupLocation="CenterOwner"
         d:DataContext="{d:DesignInstance viewModels:MessageViewModel}">
     <mah:MetroWindow.Resources>
