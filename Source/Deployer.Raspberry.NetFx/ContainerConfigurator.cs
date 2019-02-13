@@ -6,8 +6,6 @@ using Deployer.DevOpsBuildClient;
 using Deployer.Execution;
 using Deployer.Filesystem.FullFx;
 using Deployer.FileSystem;
-using Deployer.Lumia.NetFx.PhoneInfo;
-using Deployer.Raspberry;
 using Deployer.Services;
 using Deployer.Tasks;
 using Grace.DependencyInjection;
@@ -36,13 +34,12 @@ namespace Deployer.Lumia.NetFx
                             from type in a.ExportedTypes
                             where type.GetTypeInfo().ImplementedInterfaces.Contains(typeof(IDeploymentTask))
                             select type;
-            block.ExportAssemblies(Assemblies.AppDomainAssemblies).ByInterface<ISpaceAllocator>();
+            block.ExportAssemblies(Assemblies.AppDomainAssemblies).ByInterface<ISpaceAllocator<IDevice>>();
             block.Export<ZipExtractor>().As<IZipExtractor>();
             block.ExportFactory(Tokenizer.Create).As<Tokenizer<LangToken>>();
             block.Export<ScriptParser>().As<IScriptParser>();
             block.ExportFactory(() => installOptionsProvider).As<IWindowsOptionsProvider>();
             
-            block.Export<PhoneInfoReader>().As<IPhoneInfoReader>();
             block.Export<WoaDeployer>().As<IWoaDeployer>();
             block.Export<Tooling>().As<ITooling>();
             block.Export<BootCreator>().As<IBootCreator>();
@@ -66,7 +63,6 @@ namespace Deployer.Lumia.NetFx
 
         private static IExportRegistrationBlock WithRealPhone(this IExportRegistrationBlock block)
         {
-            block.Export<PhoneModelReader>().As<IPhoneModelReader>();
             block.Export<Phone>().As<IPhone>().As<IDevice>();
             block.Export<DismImageService>().As<IWindowsImageService>();
             return block;

@@ -49,9 +49,6 @@ namespace Deployment.Console
 
             var parserResult = Parser.Default
                 .ParseArguments<WindowsDeploymentCmdOptions,
-                        EnableDualBootCmdOptions,
-                        DisableDualBootCmdOptions,
-                        InstallGpuCmdOptions,
                         NonWindowsDeploymentCmdOptions>(args);
 
             await parserResult
@@ -67,9 +64,6 @@ namespace Deployment.Console
                         };
                         return deployer.Deploy();
                     },
-                    (EnableDualBootCmdOptions opts) => deployer.ToogleDualBoot(true),
-                    (DisableDualBootCmdOptions opts) => deployer.ToogleDualBoot(false),
-                    (InstallGpuCmdOptions opts) => deployer.InstallGpu(),
                     (NonWindowsDeploymentCmdOptions opts) => deployer.Deploy(),
                     HandleErrors);
         }

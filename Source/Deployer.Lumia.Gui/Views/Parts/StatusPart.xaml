@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="Deployer.Lumia.Gui.Views.Parts.StatusPart"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:viewModels="clr-namespace:Deployer.Lumia.Gui.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{d:DesignInstance viewModels:MainViewModel}">
+    <StatusBar>
+        <StatusBarItem>
+            <TextBlock Text="{Binding Status.Message}" />
+        </StatusBarItem>
+        <StatusBarItem HorizontalContentAlignment="Stretch"
+                       Visibility="{Binding IsProgressVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid>
+                <mah:MetroProgressBar Minimum="0"
+                                      Maximum="1"
+                                      Value="{Binding Progress, Mode=OneWay}" x:Name="ProgressBar" Height="20" />
+
+                <TextBlock Text="{Binding ElementName=ProgressBar, Path=Value, StringFormat={}{0:P0}}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center" />
+            </Grid>
+        </StatusBarItem>
+    </StatusBar>
+</UserControl>

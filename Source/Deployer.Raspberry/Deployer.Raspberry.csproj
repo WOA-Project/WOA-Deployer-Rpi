@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Deployer.Lumia\Deployer.Lumia.csproj" />
     <ProjectReference Include="..\Deployer.NetFx\Deployer.NetFx.csproj" />
     <ProjectReference Include="..\Deployer\Deployer.csproj" />
   </ItemGroup>

@@ -63,17 +63,7 @@
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <parts:DeploymentPart />
                 </ScrollViewer>
-            </TabItem>
-            <TabItem Header="Dual Boot">
-                <TabItem.HeaderTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding}" ToolTip="Check Dual Boot capability and enable/disable options" />
-                    </DataTemplate>
-                </TabItem.HeaderTemplate>
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <parts:DualBootPart />
-                </ScrollViewer>
-            </TabItem>
+            </TabItem>          
             <TabItem Header="Advanced">
                 <TabItem.HeaderTemplate>
                     <DataTemplate>

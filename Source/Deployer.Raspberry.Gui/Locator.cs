@@ -46,7 +46,6 @@ namespace Deployer.Raspberry.Gui
                     .Lifestyle.Singleton();
                 x.ExportFactory(() => logEvents).As<IObservable<LogEvent>>();
                 x.Export<WimPickViewModel>().ByInterfaces().As<WimPickViewModel>().Lifestyle.Singleton();
-                x.Export<DualBootViewModel>().ByInterfaces().As<DualBootViewModel>().Lifestyle.Singleton();
                 x.Export<AdvancedViewModel>().ByInterfaces().As<AdvancedViewModel>().Lifestyle.Singleton();
                 x.Export<DeploymentViewModel>().ByInterfaces().As<DeploymentViewModel>().Lifestyle.Singleton();
                 x.Export<UIServices>();
@@ -65,7 +64,5 @@ namespace Deployer.Raspberry.Gui
         public DeploymentViewModel DeploymentViewModel => container.Locate<DeploymentViewModel>();
 
         public AdvancedViewModel AdvancedViewModel => container.Locate<AdvancedViewModel>();
-
-        public DualBootViewModel DualBootViewModel => container.Locate<DualBootViewModel>();
     }
 }

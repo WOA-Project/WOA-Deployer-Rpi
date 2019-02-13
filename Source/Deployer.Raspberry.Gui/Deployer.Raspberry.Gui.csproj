@@ -77,7 +77,6 @@
     </Compile>
     <Compile Include="ViewModels\AdvancedViewModel.cs" />
     <Compile Include="ViewModels\DiskViewModel.cs" />
-    <Compile Include="ViewModels\DualBootViewModel.cs" />
     <Compile Include="ViewModels\IBusyObject.cs" />
     <Compile Include="ViewModels\MessageViewModel.cs" />
     <Compile Include="ViewModels\DeploymentViewModel.cs" />
@@ -120,10 +119,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Parts\DualBootPart.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Parts\LogPart.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -149,9 +144,6 @@
     </Compile>
     <Compile Include="Views\Parts\DiskSelectionPart.xaml.cs">
       <DependentUpon>DiskSelectionPart.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Parts\DualBootPart.xaml.cs">
-      <DependentUpon>DualBootPart.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Parts\LogPart.xaml.cs">
       <DependentUpon>LogPart.xaml</DependentUpon>

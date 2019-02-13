@@ -22,8 +22,7 @@ namespace Deployer.Raspberry.Gui.ViewModels
             this.uiServices = uiServices;
             this.settingsService = settingsService;
             this.autoDeployer = autoDeployer;
-            InstallGpuWrapper = new CommandWrapper<Unit, Unit>(this,
-                ReactiveCommand.CreateFromTask(InstallGpu), uiServices.DialogService);
+     
 
             sizeReservedForWindows =
                 this.WhenAnyValue(x => x.GbsReservedForWindows, ByteSize.FromGigaBytes)
@@ -45,25 +44,7 @@ namespace Deployer.Raspberry.Gui.ViewModels
             }
         }
 
-        private async Task InstallGpu()
-        {
-            try
-            {
-                await autoDeployer.InstallGpu();
-                var messageViewModel =
-                    new MessageViewModel(Resources.ManualStepsTitle, Resources.InstallGpuManualSteps);
 
-                uiServices.ViewService.Show("MarkdownViewer", messageViewModel);
-            }
-            catch (InvalidOperationException)
-            {
-                throw new ApplicationException(Resources.PhoneIsNotLumia950XL);
-            }
-            catch (Exception)
-            {
-                throw new ApplicationException(Resources.CannotInstallGpu);
-            }
-        }
 
         public IObservable<bool> IsBusyObservable { get; }
 

@@ -1,0 +1,12 @@
+﻿AzureDevOpsUnpack "LumiaWOA;Boot Shim;3;UEFI Loader for 8992 and 8994"
+AzureDevOpsUnpack "LumiaWOA;Lumia950XLPkg;1;MSM8994 UEFI (Lumia 950 XL)"
+GitHubUnpack "https://github.com/gus33000/MSM8994-8992-NT-ARM64-Drivers"
+Copy "Core\Good UEFI\950 XL\UEFI.elf" "EFIESP"
+Copy "Downloaded\UEFI Loader for 8992 and 8994\ARM\Debug\BootShim.efi" "EFIESP\EFI\boot\"
+ConfigureBCD
+InstallDevMenu "Core\Developer Menu\"
+DeployWindows
+CopyToBoot "Core\Boot\bootaa64.efi" "EFI\Boot\"
+InjectDrivers "Downloaded\MSM8994-8992-NT-ARM64-Drivers-master\Device Specifics\Cityman"
+InjectDrivers "Downloaded\MSM8994-8992-NT-ARM64-Drivers-master\msm8994\Pre-OOBE"
+DisplayMarkdown "Downloaded\MSM8994-8992-NT-ARM64-Drivers-master\README.md"

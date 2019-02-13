@@ -50,17 +50,12 @@
     <Compile Include="TestPhoneModelReader.cs" />
     <Compile Include="Tooling.cs" />
     <Compile Include="ContainerConfigurator.cs" />
-    <Compile Include="PhoneInfo\ByteOperations.cs" />
-    <Compile Include="PhoneInfo\Converter.cs" />
-    <Compile Include="PhoneInfo\PhoneModelReader.cs" />
-    <Compile Include="PhoneInfo\PhoneInfoReader.cs" />
-    <Compile Include="PhoneInfo\QualcommPartition.cs" />
-    <Compile Include="PhoneInfo\QualcommPartitionHeaderType.cs" />
-    <Compile Include="PhoneInfo\Streams\DeviceStream.cs" />
-    <Compile Include="PhoneInfo\Streams\GetDiskSize.cs" />
-    <Compile Include="PhoneInfo\Streams\PartialStream.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Deployer.Lumia\Deployer.Lumia.csproj">
+      <Project>{F78AF625-5811-4D00-B95D-0B2A331152FD}</Project>
+      <Name>Deployer.Lumia</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Deployer.NetFx\Deployer.NetFx.csproj">
       <Project>{FBEDAF0E-E2ED-4005-8D83-F980FA67FEB2}</Project>
       <Name>Deployer.NetFx</Name>

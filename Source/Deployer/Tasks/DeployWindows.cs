@@ -6,16 +6,21 @@ namespace Deployer.Tasks
     [TaskDescription("Deploying Windows")]
     public class DeployWindows : IDeploymentTask
     {
+        private readonly IDevice device;
+        private readonly IDisklayoutPreparer preparer;
         private readonly IWindowsDeployer windowsDeployer;
 
-        public DeployWindows(IWindowsDeployer windowsDeployer)
+        public DeployWindows(IDevice device, IDisklayoutPreparer preparer, IWindowsDeployer windowsDeployer)
         {
+            this.device = device;
+            this.preparer = preparer;
             this.windowsDeployer = windowsDeployer;
         }
 
-        public Task Execute()
+        public async Task Execute()
         {
-            return windowsDeployer.Deploy();
+            await preparer.Prepare(await device.GetDeviceDisk());
+            await windowsDeployer.Deploy();            
         }
     }
 }

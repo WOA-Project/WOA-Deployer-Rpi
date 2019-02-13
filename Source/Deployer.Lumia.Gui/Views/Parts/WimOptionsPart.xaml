@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="Deployer.Lumia.Gui.Views.Parts.WimOptionsPart"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" 
+             DataContext="{Binding Source={StaticResource Locator}, Path=WimPickViewModel}"
+             >
+    <GroupBox Header="Windows Image (.WIM)">
+        <StackPanel VerticalAlignment="Center">
+            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="4">
+                Please, specify the Windows Image file (.wim) you wish to deploy.
+            </TextBlock>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox IsReadOnly="True" VerticalAlignment="Center" Text="{Binding WimMetadata.Path, Mode=OneWay}" Padding="4" />
+                <Button Command="{Binding PickWimFileCommand}" Margin="8" Padding="4" Content="Browse..." Grid.Column="1" />
+            </Grid>
+
+            <Grid IsEnabled="{Binding HasWim}"
+                  ToolTip="This is the image (inside the .wim file) you want to deploy (WIM images can contain more than one edition like 'Pro' or 'Home'). If you don't know what this means, leave it with the default value.">
+                <ComboBox ItemsSource="{Binding WimMetadata.Images}" SelectedItem="{Binding WimMetadata.SelectedDiskImage, Mode=TwoWay}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock FontWeight="Bold" Text="{Binding Index}"/>
+                                <TextBlock Margin="4,0,0,0" Grid.Column="1">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} build {1}">
+                                            <Binding Path="DisplayName" />
+                                            <Binding Path="Build" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </Grid>
+
+        </StackPanel>
+    </GroupBox>
+</UserControl>
