@@ -202,6 +202,10 @@
       <Link>Core\Good UEFI\950\UEFI.elf</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="..\Deployer.Raspberry\Core\license.md">
+      <Link>Core\license.md</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -275,24 +279,16 @@
     <Resource Include="Assets\windows-only.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Deployer.Raspberry\Scripts\950.txt">
-      <Link>Scripts\950.txt</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\Deployer.Raspberry\Scripts\950xl.txt">
-      <Link>Scripts\950xl.txt</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\Deployer.Raspberry\Scripts\update-uefi-950xl.txt">
-      <Link>Scripts\update-uefi-950xl.txt</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Assets\heart.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\drive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\Deployer.Raspberry\Scripts\deployment.txt">
+      <Link>Scripts\deployment.txt</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

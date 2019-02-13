@@ -95,6 +95,10 @@
       <Link>Core\Good UEFI\950\UEFI.elf</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="..\Deployer.Raspberry\Core\license.md">
+      <Link>Core\license.md</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
@@ -142,18 +146,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Deployer.Raspberry\Scripts\950.txt">
-      <Link>Scripts\950.txt</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="..\Deployer.Raspberry\Scripts\950xl.txt">
-      <Link>Scripts\950xl.txt</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="..\Deployer.Raspberry\Scripts\update-uefi-950xl.txt">
-      <Link>Scripts\update-uefi-950xl.txt</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <Folder Include="Scripts\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
