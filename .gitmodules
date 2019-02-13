@@ -1,0 +1,3 @@
+[submodule "Source/Registry"]
+	path = Source/Registry
+	url = https://github.com/EricZimmerman/Registry.git
