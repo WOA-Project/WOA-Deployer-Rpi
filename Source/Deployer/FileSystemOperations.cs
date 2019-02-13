@@ -30,5 +30,10 @@ namespace Deployer
         {
             return Directory.Exists(path);
         }
+
+        public void CreateDirectory(string path)
+        {
+            Directory.CreateDirectory(path);
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace Deployer
         Task CopyDirectory(string source, string destination);
         Task DeleteDirectory(string path);
         bool DirectoryExists(string path);
+        void CreateDirectory(string path);
     }
 }

@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Deployer.Raspberry\Deployer.Raspberry.csproj" />
     <ProjectReference Include="..\Deployer\Deployer.csproj" />
   </ItemGroup>
 

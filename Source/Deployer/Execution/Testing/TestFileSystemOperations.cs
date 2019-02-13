@@ -28,5 +28,9 @@ namespace Deployer.Execution.Testing
         {
             return Directory.Exists(path);
         }
+
+        public void CreateDirectory(string path)
+        {
+        }
     }
 }
