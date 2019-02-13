@@ -46,16 +46,9 @@
   <ItemGroup>
     <Compile Include="Properties\SharedAssemblyInfo.cs" />
     <Compile Include="TestImageService.cs" />
-    <Compile Include="TestPhone.cs" />
-    <Compile Include="TestPhoneModelReader.cs" />
-    <Compile Include="Tooling.cs" />
     <Compile Include="ContainerConfigurator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Deployer.Lumia\Deployer.Lumia.csproj">
-      <Project>{F78AF625-5811-4D00-B95D-0B2A331152FD}</Project>
-      <Name>Deployer.Lumia</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Deployer.NetFx\Deployer.NetFx.csproj">
       <Project>{FBEDAF0E-E2ED-4005-8D83-F980FA67FEB2}</Project>
       <Name>Deployer.NetFx</Name>

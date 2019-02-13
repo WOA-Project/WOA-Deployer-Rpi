@@ -77,7 +77,6 @@
     </Compile>
     <Compile Include="ViewModels\AdvancedViewModel.cs" />
     <Compile Include="ViewModels\DiskViewModel.cs" />
-    <Compile Include="ViewModels\IBusyObject.cs" />
     <Compile Include="ViewModels\MessageViewModel.cs" />
     <Compile Include="ViewModels\DeploymentViewModel.cs" />
     <Compile Include="Resources.Designer.cs">
@@ -166,36 +165,60 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="..\Deployer.Raspberry\Core\Boot\bootaa64.efi">
-      <Link>Core\Boot\bootaa64.efi</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\Deployer.Raspberry\Core\Developer Menu\developermenu.efi">
-      <Link>Core\Developer Menu\developermenu.efi</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\Deployer.Raspberry\Core\Developer Menu\ui\boot.ums.connected.bmpx">
-      <Link>Core\Developer Menu\ui\boot.ums.connected.bmpx</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\Deployer.Raspberry\Core\Developer Menu\ui\boot.ums.disconnected.bmpx">
-      <Link>Core\Developer Menu\ui\boot.ums.disconnected.bmpx</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\Deployer.Raspberry\Core\Developer Menu\ui\boot.ums.waiting.bmpx">
-      <Link>Core\Developer Menu\ui\boot.ums.waiting.bmpx</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\Deployer.Raspberry\Core\Good UEFI\950 XL\UEFI.elf">
-      <Link>Core\Good UEFI\950 XL\UEFI.elf</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\Deployer.Raspberry\Core\Good UEFI\950\UEFI.elf">
-      <Link>Core\Good UEFI\950\UEFI.elf</Link>
+    <None Include="..\Deployer.Raspberry\Core\gpt.zip">
+      <Link>Core\gpt.zip</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="..\Deployer.Raspberry\Core\license.md">
       <Link>Core\license.md</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Deployer.Raspberry\Core\Tools\Etcher-Cli\x64\node_modules\drivelist\build\Release\drivelist.node">
+      <Link>Core\Tools\Etcher-Cli\x64\node_modules\drivelist\build\Release\drivelist.node</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Deployer.Raspberry\Core\Tools\Etcher-Cli\x64\node_modules\lzma-native\binding\lzma_native.node">
+      <Link>Core\Tools\Etcher-Cli\x64\node_modules\lzma-native\binding\lzma_native.node</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Deployer.Raspberry\Core\Tools\Etcher-Cli\x64\node_modules\lzma-native\build\Release\lzma_native.node">
+      <Link>Core\Tools\Etcher-Cli\x64\node_modules\lzma-native\build\Release\lzma_native.node</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Deployer.Raspberry\Core\Tools\Etcher-Cli\x64\node_modules\mountutils\build\Release\MountUtils.node">
+      <Link>Core\Tools\Etcher-Cli\x64\node_modules\mountutils\build\Release\MountUtils.node</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Deployer.Raspberry\Core\Tools\Etcher-Cli\x64\node_modules\usb\build\Release\usb_bindings.node">
+      <Link>Core\Tools\Etcher-Cli\x64\node_modules\usb\build\Release\usb_bindings.node</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Deployer.Raspberry\Core\Tools\Etcher-Cli\x64\node_modules\usb\src\binding\usb_bindings.node">
+      <Link>Core\Tools\Etcher-Cli\x64\node_modules\usb\src\binding\usb_bindings.node</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Deployer.Raspberry\Core\Tools\Etcher-Cli\x86\node_modules\drivelist\build\Release\drivelist.node">
+      <Link>Core\Tools\Etcher-Cli\x86\node_modules\drivelist\build\Release\drivelist.node</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Deployer.Raspberry\Core\Tools\Etcher-Cli\x86\node_modules\lzma-native\binding\lzma_native.node">
+      <Link>Core\Tools\Etcher-Cli\x86\node_modules\lzma-native\binding\lzma_native.node</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Deployer.Raspberry\Core\Tools\Etcher-Cli\x86\node_modules\lzma-native\build\Release\lzma_native.node">
+      <Link>Core\Tools\Etcher-Cli\x86\node_modules\lzma-native\build\Release\lzma_native.node</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Deployer.Raspberry\Core\Tools\Etcher-Cli\x86\node_modules\mountutils\build\Release\MountUtils.node">
+      <Link>Core\Tools\Etcher-Cli\x86\node_modules\mountutils\build\Release\MountUtils.node</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Deployer.Raspberry\Core\Tools\Etcher-Cli\x86\node_modules\usb\build\Release\usb_bindings.node">
+      <Link>Core\Tools\Etcher-Cli\x86\node_modules\usb\build\Release\usb_bindings.node</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Deployer.Raspberry\Core\Tools\Etcher-Cli\x86\node_modules\usb\src\binding\usb_bindings.node">
+      <Link>Core\Tools\Etcher-Cli\x86\node_modules\usb\src\binding\usb_bindings.node</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="app.manifest" />
@@ -231,32 +254,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Deployer.Gui.Common\Deployer.Gui.Common.csproj">
-      <Project>{AD8EA86C-AF60-4CCF-9CAA-07BBF5E039EC}</Project>
-      <Name>Deployer.Gui.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Deployer.Gui.Core\Deployer.Gui.Core.csproj">
-      <Project>{4DDBED8A-6445-4E59-9E64-6FA3B7419052}</Project>
-      <Name>Deployer.Gui.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Deployer.Raspberry.NetFx\Deployer.Raspberry.NetFx.csproj">
-      <Project>{2ABBF26A-2C87-4657-861E-08EC55DEAD77}</Project>
-      <Name>Deployer.Raspberry.NetFx</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Deployer.Raspberry\Deployer.Raspberry.csproj">
-      <Project>{20501832-13f5-4673-9d86-9e7e0c562027}</Project>
-      <Name>Deployer.Raspberry</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Deployer.NetFx\Deployer.NetFx.csproj">
-      <Project>{FBEDAF0E-E2ED-4005-8D83-F980FA67FEB2}</Project>
-      <Name>Deployer.NetFx</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Deployer\Deployer.csproj">
-      <Project>{B0709401-1148-43B4-A06C-79173393DD98}</Project>
-      <Name>Deployer</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Assets\950.png" />
     <Resource Include="Assets\950xl.png" />
     <Resource Include="Assets\appicon.ico" />
@@ -281,6 +278,82 @@
       <Link>Scripts\deployment.txt</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Deployer.Raspberry\Core\Tools\Etcher-Cli\x64\node_modules\lzma-native\binding\liblzma.dll">
+      <Link>Core\Tools\Etcher-Cli\x64\node_modules\lzma-native\binding\liblzma.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Deployer.Raspberry\Core\Tools\Etcher-Cli\x64\node_modules\lzma-native\deps\bin_i686\liblzma.dll">
+      <Link>Core\Tools\Etcher-Cli\x64\node_modules\lzma-native\deps\bin_i686\liblzma.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Deployer.Raspberry\Core\Tools\Etcher-Cli\x64\node_modules\lzma-native\deps\bin_x86-64\liblzma.dll">
+      <Link>Core\Tools\Etcher-Cli\x64\node_modules\lzma-native\deps\bin_x86-64\liblzma.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Deployer.Raspberry\Core\Tools\Etcher-Cli\x64\etcher.exe">
+      <Link>Core\Tools\Etcher-Cli\x64\etcher.exe</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Deployer.Raspberry\Core\Tools\Etcher-Cli\x86\node_modules\lzma-native\binding\liblzma.dll">
+      <Link>Core\Tools\Etcher-Cli\x86\node_modules\lzma-native\binding\liblzma.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Deployer.Raspberry\Core\Tools\Etcher-Cli\x86\node_modules\lzma-native\deps\bin_i686\liblzma.dll">
+      <Link>Core\Tools\Etcher-Cli\x86\node_modules\lzma-native\deps\bin_i686\liblzma.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Deployer.Raspberry\Core\Tools\Etcher-Cli\x86\node_modules\lzma-native\deps\bin_x86-64\liblzma.dll">
+      <Link>Core\Tools\Etcher-Cli\x86\node_modules\lzma-native\deps\bin_x86-64\liblzma.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Deployer.Raspberry\Core\Tools\Etcher-Cli\x86\etcher.exe">
+      <Link>Core\Tools\Etcher-Cli\x86\etcher.exe</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Deployer.Gui.Common\Deployer.Gui.Common.csproj">
+      <Project>{ad8ea86c-af60-4ccf-9caa-07bbf5e039ec}</Project>
+      <Name>Deployer.Gui.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Deployer.Gui.Core\Deployer.Gui.Core.csproj">
+      <Project>{4ddbed8a-6445-4e59-9e64-6fa3b7419052}</Project>
+      <Name>Deployer.Gui.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Deployer.NetFx\Deployer.NetFx.csproj">
+      <Project>{fbedaf0e-e2ed-4005-8d83-f980fa67feb2}</Project>
+      <Name>Deployer.NetFx</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Deployer.Raspberry.Console\Deployer.Raspberry.Console.csproj">
+      <Project>{16500914-e053-433e-9b6a-27d4a5717130}</Project>
+      <Name>Deployer.Raspberry.Console</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Deployer.Raspberry.NetFx\Deployer.Raspberry.NetFx.csproj">
+      <Project>{2abbf26a-2c87-4657-861e-08ec55dead77}</Project>
+      <Name>Deployer.Raspberry.NetFx</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Deployer.Raspberry\Deployer.Raspberry.csproj">
+      <Project>{20501832-13f5-4673-9d86-9e7e0c562027}</Project>
+      <Name>Deployer.Raspberry</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Deployer\Deployer.csproj">
+      <Project>{b0709401-1148-43b4-a06c-79173393dd98}</Project>
+      <Name>Deployer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

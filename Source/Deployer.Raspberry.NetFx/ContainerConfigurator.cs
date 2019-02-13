@@ -18,13 +18,7 @@ namespace Deployer.Lumia.NetFx
         public static IExportRegistrationBlock Configure(this IExportRegistrationBlock block,
             WindowsDeploymentOptionsProvider installOptionsProvider)
         {
-            return WithCommon(block, installOptionsProvider).WithRealPhone();
-        }
-
-        public static IExportRegistrationBlock ConfigureForTesting(this IExportRegistrationBlock block,
-            WindowsDeploymentOptionsProvider installOptionsProvider)
-        {
-            return WithCommon(block, installOptionsProvider).WithTestingPhone();
+            return WithCommon(block, installOptionsProvider);
         }
 
         public static IExportRegistrationBlock WithCommon(this IExportRegistrationBlock block,
@@ -34,17 +28,14 @@ namespace Deployer.Lumia.NetFx
                             from type in a.ExportedTypes
                             where type.GetTypeInfo().ImplementedInterfaces.Contains(typeof(IDeploymentTask))
                             select type;
-            block.ExportAssemblies(Assemblies.AppDomainAssemblies).ByInterface<ISpaceAllocator<IPhone>>();
+            block.ExportAssemblies(Assemblies.AppDomainAssemblies).ByInterface<ISpaceAllocator<IDevice>>();
             block.Export<ZipExtractor>().As<IZipExtractor>();
             block.ExportFactory(Tokenizer.Create).As<Tokenizer<LangToken>>();
             block.Export<ScriptParser>().As<IScriptParser>();
             block.ExportFactory(() => installOptionsProvider).As<IWindowsOptionsProvider>();
             
-            block.Export<WoaDeployer>().As<IWoaDeployer>();
-            block.Export<Tooling>().As<ITooling>();
             block.Export<BootCreator>().As<IBootCreator>();
             block.Export<LowLevelApi>().As<ILowLevelApi>();
-            block.Export<PhonePathBuilder>().As<IPathBuilder>();
             block.ExportInstance(taskTypes).As<IEnumerable<Type>>();
             block.Export<ScriptRunner>().As<IScriptRunner>();
             block.Export<InstanceBuilder>().As<IInstanceBuilder>();
@@ -54,25 +45,7 @@ namespace Deployer.Lumia.NetFx
             block.Export<WindowsDeployer>().As<IWindowsDeployer>();
             block.Export<GitHubDownloader>().As<IGitHubDownloader>();
 
-            WithRealPhone(block);
-
             block.ExportFactory(() => AzureDevOpsClient.Create(new Uri("https://dev.azure.com"))).As<IAzureDevOpsBuildClient>();         
-
-            return block;
-        }
-
-        private static IExportRegistrationBlock WithRealPhone(this IExportRegistrationBlock block)
-        {
-            block.Export<Phone>().As<IPhone>().As<IDevice>();
-            block.Export<DismImageService>().As<IWindowsImageService>();
-            return block;
-        }
-
-        private static IExportRegistrationBlock WithTestingPhone(this IExportRegistrationBlock block)
-        {
-            block.Export<TestPhoneModelReader>().As<IPhoneModelReader>();
-            block.Export<TestPhone>().As<IPhone>().As<IDevice>();
-            block.Export<TestImageService>().As<IWindowsImageService>();
 
             return block;
         }

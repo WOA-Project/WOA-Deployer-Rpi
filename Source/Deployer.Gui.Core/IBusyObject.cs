@@ -1,6 +1,6 @@
 using System;
 
-namespace Deployer.Lumia.Gui.ViewModels
+namespace Deployer.Gui.Core
 {
     public interface IBusy
     {
