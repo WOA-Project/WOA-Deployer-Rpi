@@ -76,6 +76,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AdvancedViewModel.cs" />
+    <Compile Include="ViewModels\DiskViewModel.cs" />
     <Compile Include="ViewModels\DualBootViewModel.cs" />
     <Compile Include="ViewModels\IBusyObject.cs" />
     <Compile Include="ViewModels\MessageViewModel.cs" />
