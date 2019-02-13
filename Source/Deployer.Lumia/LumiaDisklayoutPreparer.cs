@@ -29,10 +29,14 @@ namespace Deployer.Lumia
 
         public async Task Prepare(Disk disk)
         {
+            Log.Information("Preparing partitions for Windows deployment...");
+
             await phone.RemoveExistingWindowsPartitions();
             var options = optionsProvider.Options;
             await AllocateSpace(options.SizeReservedForWindows);
             await CreatePartitions();
+
+            Log.Information("Partition layout ready");
         }
 
         private async Task AllocateSpace(ByteSize requiredSize)

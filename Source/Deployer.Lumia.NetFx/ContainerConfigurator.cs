@@ -7,6 +7,7 @@ using Deployer.Execution;
 using Deployer.Filesystem.FullFx;
 using Deployer.FileSystem;
 using Deployer.Lumia.NetFx.PhoneInfo;
+using Deployer.Raspberry;
 using Deployer.Services;
 using Deployer.Tasks;
 using Grace.DependencyInjection;
@@ -50,7 +51,8 @@ namespace Deployer.Lumia.NetFx
             block.ExportInstance(taskTypes).As<IEnumerable<Type>>();
             block.Export<ScriptRunner>().As<IScriptRunner>();
             block.Export<InstanceBuilder>().As<IInstanceBuilder>();
-            
+            block.ExportFactory((IPhone p) => new DeviceProvider { Device = p }).As<IDeviceProvider>();
+
             block.Export<FileSystemOperations>().As<IFileSystemOperations>();
             block.Export<BcdInvokerFactory>().As<IBcdInvokerFactory>();
             block.Export<WindowsDeployer>().As<IWindowsDeployer>();
@@ -58,7 +60,7 @@ namespace Deployer.Lumia.NetFx
 
             WithRealPhone(block);
 
-            block.ExportFactory(() => AzureDevOpsClient.Create(new Uri("https://dev.azure.com"))).As<IAzureDevOpsBuildClient>();         
+            block.ExportFactory(() => AzureDevOpsClient.Create(new Uri("https://dev.azure.com"))).As<IAzureDevOpsBuildClient>();
 
             return block;
         }

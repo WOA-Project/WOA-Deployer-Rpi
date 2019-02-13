@@ -1,4 +1,4 @@
-﻿namespace Deployer.Raspberry
+﻿namespace Deployer
 {
     public interface IDeviceProvider
     {

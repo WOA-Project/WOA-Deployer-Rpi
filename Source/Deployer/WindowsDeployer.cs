@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Deployer.FileSystem;
-using Deployer.Raspberry;
 using Deployer.Services;
 using Serilog;
 
