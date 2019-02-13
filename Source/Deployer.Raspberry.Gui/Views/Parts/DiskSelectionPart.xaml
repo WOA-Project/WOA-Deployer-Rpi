@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="Deployer.Raspberry.Gui.Views.Parts.DiskSelectionPart"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             xmlns:viewModels1="clr-namespace:Deployer.Raspberry.Gui.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{d:DesignInstance viewModels1:DeploymentViewModel}"
+             x:Name="UserControl">
+    <GroupBox Header="Drive selection" Padding="8">
+        <GroupBox.Resources>
+            <CollectionViewSource x:Key="Disks" Source="{Binding Disks}">
+                <CollectionViewSource.SortDescriptions>
+                    <componentModel:SortDescription PropertyName="Number" />
+                </CollectionViewSource.SortDescriptions>
+            </CollectionViewSource>
+        </GroupBox.Resources>
+        <StackPanel VerticalAlignment="Center">
+            
+            <TextBlock TextWrapping="Wrap" Margin="0,8">
+                Please, select the <Bold>drive</Bold> where you want to deploy Windows 10 ARM64. This is, the <Bold>Micro SD</Bold> card from your Raspberry Pi.
+            </TextBlock>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.RowSpan="2" ItemsSource="{Binding Source={StaticResource Disks}}"
+                                      HorizontalContentAlignment="Stretch"
+                                      SelectedItem="{Binding SelectedDisk, Mode=TwoWay}"
+                                      IsEnabled="{Binding RefreshDisksCommandWrapper.IsExecuting, Converter={StaticResource BooleanToVisibilityConverterInverted}}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid x:Name="Container" Height="30" Visibility="{Binding ElementName=UserControl, Path=DataContext.RefreshDisksCommandWrapper.IsExecuting, Converter={StaticResource BooleanToVisibilityConverterInverted}}" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="/Assets/drive.png" />
+                                <TextBlock Margin="10, 0" x:Name="TextBlock" Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0}: {1} - {2}">
+                                            <Binding Path="Number" />
+                                            <Binding Path="FriendlyName" />
+                                            <Binding Path="Size" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </Grid>
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding IsUsualTarget}" Value="False">
+                                    <Setter TargetName="TextBlock" Property="Foreground" Value="Red"/>
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Grid Grid.Column="0"
+                                  Visibility="{Binding RefreshDisksCommandWrapper.IsExecuting, Converter={StaticResource BooleanToVisibilityConverter}}" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="5"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock VerticalAlignment="Center" TextAlignment="Center" Grid.Row="0" Text="Loading..."/>
+                    <ProgressBar Grid.Row="1" IsIndeterminate="True"/>
+                </Grid>
+                <Button Margin="10,0" VerticalAlignment="Center" Grid.Column="1" Content="Refresh" Command="{Binding RefreshDisksCommandWrapper.Command}"  />
+            </Grid>
+
+        </StackPanel>
+    </GroupBox>
+</UserControl>

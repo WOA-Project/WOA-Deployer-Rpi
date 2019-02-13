@@ -7,9 +7,20 @@
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:parts="clr-namespace:Deployer.Raspberry.Gui.Views.Parts"
+             xmlns:Interactions="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              DataContext="{Binding Source={StaticResource Locator}, Path=DeploymentViewModel}" mah:DialogParticipation.Register="{Binding}">
+
+    <Interactions:Interaction.Triggers>
+        <Interactions:EventTrigger EventName="Loaded">
+            <Interactions:EventTrigger.Actions>
+                <!--<Interactions:InvokeCommandAction Command="{Binding ShowWarningCommand}" />-->
+                <Interactions:InvokeCommandAction Command="{Binding RefreshDisksCommandWrapper.Command}" />
+            </Interactions:EventTrigger.Actions>
+        </Interactions:EventTrigger>
+    </Interactions:Interaction.Triggers>
+
     <Grid>
 
         <Grid.RowDefinitions>
@@ -27,7 +38,10 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <parts:WimOptionsPart Margin="8,10,0,10" />
+            <UniformGrid Rows="1">
+                <parts:DiskSelectionPart Margin="8,0" />
+                <parts:WimOptionsPart  Margin="8,0" />
+            </UniformGrid>
 
             <common:IconButton Grid.Row="1" VerticalAlignment="Center" Command="{Binding FullInstallWrapper.Command}"
                                IsBusy="{Binding FullInstallWrapper.IsExecuting}" Content="Deploy"
@@ -35,14 +49,14 @@
                                HorizontalAlignment="Center"
                                ToolTip="Use this option to install Windows into a Phone that has just been unlocked.">
                 <common:IconButton.Resources>
-                   
+
                 </common:IconButton.Resources>
                 <common:IconButton.Icon>
                     <iconPacks:PackIconFontAwesome
-                        Kind="RocketSolid" Style="{StaticResource ButtonIconStyle}" />                     
+                        Kind="RocketSolid" Style="{StaticResource ButtonIconStyle}" />
                 </common:IconButton.Icon>
             </common:IconButton>
-            
+
         </Grid>
     </Grid>
 </UserControl>

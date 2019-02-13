@@ -116,6 +116,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Parts\DiskSelectionPart.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Parts\DualBootPart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -142,6 +146,9 @@
     </Compile>
     <Compile Include="Views\Parts\DeploymentPart.xaml.cs">
       <DependentUpon>DeploymentPart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Parts\DiskSelectionPart.xaml.cs">
+      <DependentUpon>DiskSelectionPart.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Parts\DualBootPart.xaml.cs">
       <DependentUpon>DualBootPart.xaml</DependentUpon>
@@ -283,6 +290,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\heart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\drive.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

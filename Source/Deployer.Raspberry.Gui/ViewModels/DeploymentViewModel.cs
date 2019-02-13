@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using Deployer.FileSystem;
 using Deployer.Gui.Core;
 using ReactiveUI;
 
@@ -14,12 +17,14 @@ namespace Deployer.Raspberry.Gui.ViewModels
         private readonly UIServices uiServices;
         private readonly AdvancedViewModel advancedViewModel;
         private readonly WimPickViewModel wimPickViewModel;
-        private readonly ObservableAsPropertyHelper<bool> isBusyHelper;
+        private readonly ObservableAsPropertyHelper<bool> isBusy;
+        private DiskViewModel selectedDisk;
+        private readonly ObservableAsPropertyHelper<IEnumerable<DiskViewModel>> disks;
 
         public DeploymentViewModel(
             IWindowsOptionsProvider optionsProvider,
             IWoaDeployer deployer, UIServices uiServices, AdvancedViewModel advancedViewModel,
-            WimPickViewModel wimPickViewModel)
+            WimPickViewModel wimPickViewModel, ILowLevelApi lowLevel)
         {
             this.optionsProvider = optionsProvider;
             this.deployer = deployer;
@@ -33,10 +38,28 @@ namespace Deployer.Raspberry.Gui.ViewModels
             FullInstallWrapper = new CommandWrapper<Unit, Unit>(this,
                 ReactiveCommand.CreateFromTask(Deploy, isSelectedWim), uiServices.DialogService);
             IsBusyObservable = FullInstallWrapper.Command.IsExecuting;
-            isBusyHelper = IsBusyObservable.ToProperty(this, model => model.IsBusy);
+            isBusy = IsBusyObservable.ToProperty(this, model => model.IsBusy);
+
+            RefreshDisksCommandWrapper = new CommandWrapper<Unit, ICollection<Disk>>(this,
+                ReactiveCommand.CreateFromTask(lowLevel.GetDisks), uiServices.DialogService);
+            disks = RefreshDisksCommandWrapper.Command
+                .Select(x => x
+                    .Where(y => !y.IsBoot && !y.IsSystem && !y.IsOffline)
+                    .Select(disk => new DiskViewModel(disk)))
+                .ToProperty(this, x => x.Disks);
         }
 
-        public bool IsBusy => isBusyHelper.Value;
+        public IEnumerable<DiskViewModel> Disks => disks.Value;
+
+        public CommandWrapper<Unit, ICollection<Disk>> RefreshDisksCommandWrapper { get; set; }
+
+        public DiskViewModel SelectedDisk
+        {
+            get => selectedDisk;
+            set => this.RaiseAndSetIfChanged(ref selectedDisk, value);
+        }
+
+        public bool IsBusy => isBusy.Value;
 
         private async Task Deploy()
         {
