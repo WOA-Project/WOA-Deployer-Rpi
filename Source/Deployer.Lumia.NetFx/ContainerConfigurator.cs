@@ -40,7 +40,7 @@ namespace Deployer.Lumia.NetFx
             block.ExportFactory(Tokenizer.Create).As<Tokenizer<LangToken>>();
             block.Export<ScriptParser>().As<IScriptParser>();
             block.ExportFactory(() => installOptionsProvider).As<IWindowsOptionsProvider>();
-            
+            block.Export<LumiaDisklayoutPreparer>().As<IDisklayoutPreparer>();
             block.Export<PhoneInfoReader>().As<IPhoneInfoReader>();
             block.Export<WoaDeployer>().As<IWoaDeployer>();
             block.Export<Tooling>().As<ITooling>();

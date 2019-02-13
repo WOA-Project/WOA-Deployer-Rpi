@@ -227,32 +227,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Deployer.Gui.Common\Deployer.Gui.Common.csproj">
-      <Project>{AD8EA86C-AF60-4CCF-9CAA-07BBF5E039EC}</Project>
-      <Name>Deployer.Gui.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Deployer.Gui.Core\Deployer.Gui.Core.csproj">
-      <Project>{4DDBED8A-6445-4E59-9E64-6FA3B7419052}</Project>
-      <Name>Deployer.Gui.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Deployer.Lumia.NetFx\Deployer.Lumia.NetFx.csproj">
-      <Project>{2ABBF26A-2C87-4657-861E-08EC55DEAD77}</Project>
-      <Name>Deployer.Lumia.NetFx</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Deployer.Lumia\Deployer.Lumia.csproj">
-      <Project>{20501832-13f5-4673-9d86-9e7e0c562027}</Project>
-      <Name>Deployer.Lumia</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Deployer.NetFx\Deployer.NetFx.csproj">
-      <Project>{FBEDAF0E-E2ED-4005-8D83-F980FA67FEB2}</Project>
-      <Name>Deployer.NetFx</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Deployer\Deployer.csproj">
-      <Project>{B0709401-1148-43B4-A06C-79173393DD98}</Project>
-      <Name>Deployer</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Assets\950.png" />
     <Resource Include="Assets\950xl.png" />
     <Resource Include="Assets\appicon.ico" />
@@ -282,6 +256,28 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\heart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Deployer.Gui.Common\Deployer.Gui.Common.csproj">
+      <Project>{ad8ea86c-af60-4ccf-9caa-07bbf5e039ec}</Project>
+      <Name>Deployer.Gui.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Deployer.Gui.Core\Deployer.Gui.Core.csproj">
+      <Project>{4ddbed8a-6445-4e59-9e64-6fa3b7419052}</Project>
+      <Name>Deployer.Gui.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Deployer.Lumia.NetFx\Deployer.Lumia.NetFx.csproj">
+      <Project>{cfa21504-2cfd-468b-8458-bd9bd05bcf19}</Project>
+      <Name>Deployer.Lumia.NetFx</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Deployer.Lumia\Deployer.Lumia.csproj">
+      <Project>{f78af625-5811-4d00-b95d-0b2a331152fd}</Project>
+      <Name>Deployer.Lumia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Deployer\Deployer.csproj">
+      <Project>{b0709401-1148-43b4-a06c-79173393dd98}</Project>
+      <Name>Deployer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -34,7 +34,7 @@ namespace Deployer.Lumia.NetFx
                             from type in a.ExportedTypes
                             where type.GetTypeInfo().ImplementedInterfaces.Contains(typeof(IDeploymentTask))
                             select type;
-            block.ExportAssemblies(Assemblies.AppDomainAssemblies).ByInterface<ISpaceAllocator<IDevice>>();
+            block.ExportAssemblies(Assemblies.AppDomainAssemblies).ByInterface<ISpaceAllocator<IPhone>>();
             block.Export<ZipExtractor>().As<IZipExtractor>();
             block.ExportFactory(Tokenizer.Create).As<Tokenizer<LangToken>>();
             block.Export<ScriptParser>().As<IScriptParser>();
