@@ -6,6 +6,7 @@ using Deployer.DevOpsBuildClient;
 using Deployer.Execution;
 using Deployer.Filesystem.FullFx;
 using Deployer.FileSystem;
+using Deployer.Raspberry;
 using Deployer.Services;
 using Deployer.Tasks;
 using Grace.DependencyInjection;
@@ -33,13 +34,13 @@ namespace Deployer.Lumia.NetFx
             block.ExportFactory(Tokenizer.Create).As<Tokenizer<LangToken>>();
             block.Export<ScriptParser>().As<IScriptParser>();
             block.ExportFactory(() => installOptionsProvider).As<IWindowsOptionsProvider>();
-            
+            block.Export<WoaDeployer>().As<IWoaDeployer>();
             block.Export<BootCreator>().As<IBootCreator>();
             block.Export<LowLevelApi>().As<ILowLevelApi>();
             block.ExportInstance(taskTypes).As<IEnumerable<Type>>();
             block.Export<ScriptRunner>().As<IScriptRunner>();
             block.Export<InstanceBuilder>().As<IInstanceBuilder>();
-            
+            block.Export<RaspberryPathBuilder>().As<IPathBuilder>();
             block.Export<FileSystemOperations>().As<IFileSystemOperations>();
             block.Export<BcdInvokerFactory>().As<IBcdInvokerFactory>();
             block.Export<WindowsDeployer>().As<IWindowsDeployer>();

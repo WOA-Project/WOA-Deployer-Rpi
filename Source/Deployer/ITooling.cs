@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Deployer.Lumia
+namespace Deployer
 {
     public interface ITooling
     {

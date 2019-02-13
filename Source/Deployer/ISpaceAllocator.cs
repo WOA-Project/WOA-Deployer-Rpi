@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using ByteSizeLib;
 
-namespace Deployer.Lumia
+namespace Deployer
 {
     public interface ISpaceAllocator<in TDev> where TDev : IDevice
     {
