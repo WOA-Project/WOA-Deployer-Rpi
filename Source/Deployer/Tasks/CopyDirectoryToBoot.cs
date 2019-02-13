@@ -5,15 +5,15 @@ using Deployer.FileSystem;
 
 namespace Deployer.Tasks
 {
-    [TaskDescription("Copying file to BOOT: {0} to {1}")]
-    public class CopyToBoot : IDeploymentTask
+    [TaskDescription("Copying directory to BOOT: {0} to {1}")]
+    public class CopyDirectoryToBoot : IDeploymentTask
     {
         private readonly string origin;
         private readonly string destination;
         private readonly IFileSystemOperations fileSystemOperations;
         private readonly IDeviceProvider deviceProvider;
 
-        public CopyToBoot(string origin, string destination, IFileSystemOperations fileSystemOperations, IDeviceProvider deviceProvider)
+        public CopyDirectoryToBoot(string origin, string destination, IFileSystemOperations fileSystemOperations, IDeviceProvider deviceProvider)
         {
             this.origin = origin;
             this.destination = destination;
@@ -35,7 +35,7 @@ namespace Deployer.Tasks
             var bootVol = await device.GetBootVolume();
 
             var finalPath = Path.Combine(bootVol.RootDir.Name, destination);
-            await fileSystemOperations.Copy(origin, finalPath);
+            await fileSystemOperations.CopyDirectory(origin, finalPath);
 
             await bootVol.Partition.SetGptType(PartitionType.Esp);
         }

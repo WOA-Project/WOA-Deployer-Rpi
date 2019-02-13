@@ -9,19 +9,26 @@ using Deployer.Execution;
 
 namespace Deployer.Raspberry.Tasks
 {
+    [TaskDescription("Downloading UEFI")]
     public class UefiDownload : IDeploymentTask
     {
         private readonly IGitHubDownloader downloader;
-        private readonly IFileSystemOperations operations;
+        private readonly IFileSystemOperations fileSystemOperations;
+        private const string DownloadFolder = @"Downloaded\UEFI";
 
-        public UefiDownload(IGitHubDownloader downloader, IFileSystemOperations operations)
+        public UefiDownload(IGitHubDownloader downloader, IFileSystemOperations fileSystemOperations)
         {
             this.downloader = downloader;
-            this.operations = operations;
+            this.fileSystemOperations = fileSystemOperations;
         }
 
         public async Task Execute()
         {
+            if (fileSystemOperations.DirectoryExists(DownloadFolder))
+            {
+                return;
+            }
+
             using (var stream = await downloader.OpenZipStream("https://github.com/andreiw/RaspberryPiPkg"))
             {
                 var zipArchive = new ZipArchive(stream, ZipArchiveMode.Read);
@@ -29,7 +36,7 @@ namespace Deployer.Raspberry.Tasks
                 var mostRecentFolderEntry = GetMostRecentDirEntry(zipArchive);
 
                 var contents = zipArchive.Entries.Where(x => x.FullName.StartsWith(mostRecentFolderEntry.FullName) && !x.FullName.EndsWith("/"));
-                await ExtractContents(@"Downloaded\UEFI", mostRecentFolderEntry, contents);
+                await ExtractContents(DownloadFolder, mostRecentFolderEntry, contents);
             }
         }
 
@@ -42,9 +49,9 @@ namespace Deployer.Raspberry.Tasks
 
                 var destFile = Path.Combine(destination, filePath.Replace("/", "\\"));
                 var dir = Path.GetDirectoryName(destFile);
-                if (!operations.DirectoryExists(dir))
+                if (!fileSystemOperations.DirectoryExists(dir))
                 {
-                    operations.CreateDirectory(dir);
+                    fileSystemOperations.CreateDirectory(dir);
                 }
 
                 using (var destStream = File.Open(destFile, FileMode.OpenOrCreate))

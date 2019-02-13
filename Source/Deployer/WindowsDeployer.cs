@@ -31,6 +31,8 @@ namespace Deployer
 
             var options = optionsProvider.Options;
             var windowsVolume = await device.GetWindowsVolume();
+
+            Log.Information("Deploying Windows...");
             await imageService.ApplyImage(windowsVolume, options.ImagePath, options.ImageIndex, options.UseCompact, progressObserver);
             await MakeBootable();
         }

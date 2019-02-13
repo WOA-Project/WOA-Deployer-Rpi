@@ -5,6 +5,7 @@ namespace Deployer.Tasks
 {
     public interface IZipExtractor
     {
-        Task ExtractToFolder(Stream stream, string folder);
+        Task ExtractFirstChildToFolder(Stream stream, string folder);
+        Task ExtractToFolder(Stream stream, string folderPath);
     }
 }

@@ -21,7 +21,7 @@ namespace Deployer.Raspberry
 
         public override async Task<Volume> GetBootVolume()
         {
-            return await GetVolume("BOOT");
+            return await GetVolume("EFIESP");
         }
 
         public override async Task RemoveExistingWindowsPartitions()

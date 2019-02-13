@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -9,19 +7,26 @@ using Deployer.Execution;
 
 namespace Deployer.Raspberry.Tasks
 {
+    [TaskDescription("Downloading Main Driver Package")]
     public class DriversDownload : IDeploymentTask
     {
         private readonly IGitHubDownloader downloader;
-        private readonly IFileSystemOperations operations;
+        private readonly IFileSystemOperations fileSystemOperations;
+        private const string DownloadFolder = @"Downloaded\Drivers";
 
-        public DriversDownload(IGitHubDownloader downloader, IFileSystemOperations operations)
+        public DriversDownload(IGitHubDownloader downloader, IFileSystemOperations fileSystemOperations)
         {
             this.downloader = downloader;
-            this.operations = operations;
+            this.fileSystemOperations = fileSystemOperations;
         }
 
         public async Task Execute()
         {
+            if (fileSystemOperations.DirectoryExists("Drivers"))
+            {
+                return;
+            }
+
             using (var stream = await downloader.OpenZipStream("https://github.com/andreiw/RaspberryPiPkg"))
             {
                 var zipArchive = new ZipArchive(stream, ZipArchiveMode.Read);
@@ -29,7 +34,8 @@ namespace Deployer.Raspberry.Tasks
                 var root = zipArchive.Entries.First(x => x.FullName.EndsWith("Drivers/"));
 
                 var contents = zipArchive.Entries.Where(x => x.FullName.StartsWith(root.FullName) && !x.FullName.EndsWith("/"));
-                await ExtractContents(@"Downloaded\Drivers", root, contents);
+                
+                await ExtractContents(DownloadFolder, root, contents);
             }
         }
 
@@ -42,9 +48,9 @@ namespace Deployer.Raspberry.Tasks
 
                 var destFile = Path.Combine(destination, filePath.Replace("/", "\\"));
                 var dir = Path.GetDirectoryName(destFile);
-                if (!operations.DirectoryExists(dir))
+                if (!fileSystemOperations.DirectoryExists(dir))
                 {
-                    operations.CreateDirectory(dir);
+                    fileSystemOperations.CreateDirectory(dir);
                 }
 
                 using (var destStream = File.Open(destFile, FileMode.OpenOrCreate))
@@ -53,47 +59,6 @@ namespace Deployer.Raspberry.Tasks
                     await stream.CopyToAsync(destStream);
                 }
             }
-        }
-
-        private ZipArchiveEntry GetMostRecentDirEntry(ZipArchive p)
-        {
-            var dirs = from e in p.Entries
-                where e.FullName.EndsWith("/")
-                select e;
-
-            var splitted = from e in dirs
-                select new
-                {
-                    e,
-                    Parts = e.FullName.Split('/'),
-                };
-
-            var parsed = from r in splitted
-                select new
-                {
-                    r.e,
-                    Date = FirstParseableOrNull(r.Parts),
-                };
-
-            return parsed.OrderByDescending(x => x.Date).First().e;
-        }
-
-        private DateTime? FirstParseableOrNull(string[] parts)
-        {
-            foreach (var part in parts)
-            {
-                var candidate = part.Split('-');
-                if (candidate.Length > 1)
-                {
-                    var datePart = candidate[0];
-                    if (DateTime.TryParseExact(datePart, "yyyyMMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var date))
-                    {
-                        return date;
-                    }
-                }
-            }
-
-            return null;
         }
     }
 }

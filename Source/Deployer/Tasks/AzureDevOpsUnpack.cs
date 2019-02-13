@@ -55,7 +55,7 @@ namespace Deployer.Tasks
             using (var httpClient = new HttpClient())
             {
                 var stream = await httpClient.GetStreamAsync(artifact.Resource.DownloadUrl);
-                await extractor.ExtractToFolder(stream, folderPath);
+                await extractor.ExtractFirstChildToFolder(stream, folderPath);
             }
         }
     }

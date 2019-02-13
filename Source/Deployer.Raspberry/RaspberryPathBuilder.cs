@@ -22,6 +22,7 @@ namespace Deployer.Raspberry
             IDictionary<string, Func<Task<string>>> mappings = new Dictionary<string, Func<Task<string>>>()
             {
                 { "WindowsARM", async () => (await deviceProviderDevice.GetWindowsVolume()).RootDir.Name},
+                { "BOOT", async () => (await deviceProviderDevice.GetBootVolume()).RootDir.Name},
             };
 
             var matching = mappings.Keys.FirstOrDefault(s => str.StartsWith(s, StringComparison.OrdinalIgnoreCase));

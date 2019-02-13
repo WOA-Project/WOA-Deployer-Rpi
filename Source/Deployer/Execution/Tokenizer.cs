@@ -22,7 +22,7 @@ namespace Deployer.Execution
 
         public static readonly TextParser<TextSpan> QuotedTextParser =
             from leading in Span.EqualToIgnoreCase("\"")
-            from str in Span.Regex(@"(?:(?!\"").)*")
+            from str in Span.Regex(@"(?:(?!\"").)*").OptionalOrDefault()
             from trailing in Span.EqualToIgnoreCase("\"")
             select str;
     }    

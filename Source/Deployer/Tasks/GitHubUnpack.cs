@@ -46,7 +46,7 @@ namespace Deployer.Tasks
             var openZipStream = await downloader.OpenZipStream(downloadUrl);
             using (var stream = openZipStream)
             {
-                await extractor.ExtractToFolder(stream, folderPath);
+                await extractor.ExtractFirstChildToFolder(stream, folderPath);
             }
         }
     }
