@@ -154,12 +154,8 @@
       <Project>{20501832-13f5-4673-9d86-9e7e0c562027}</Project>
       <Name>Deployer.Raspberry</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Deployer.NetFx\Deployer.NetFx.csproj">
-      <Project>{fbedaf0e-e2ed-4005-8d83-f980fa67feb2}</Project>
-      <Name>Deployer.NetFx</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Deployer\Deployer.csproj">
-      <Project>{b0709401-1148-43b4-a06c-79173393dd98}</Project>
+    <ProjectReference Include="..\DeployerPlatform\Deployer\Deployer.csproj">
+      <Project>{20D40DC1-0237-47A0-B169-B420159E341C}</Project>
       <Name>Deployer</Name>
     </ProjectReference>
   </ItemGroup>

@@ -49,16 +49,16 @@
     <Compile Include="ContainerConfigurator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Deployer.NetFx\Deployer.NetFx.csproj">
-      <Project>{FBEDAF0E-E2ED-4005-8D83-F980FA67FEB2}</Project>
-      <Name>Deployer.NetFx</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Deployer.Raspberry\Deployer.Raspberry.csproj">
       <Project>{20501832-13F5-4673-9D86-9E7E0C562027}</Project>
       <Name>Deployer.Raspberry</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Deployer\Deployer.csproj">
-      <Project>{B0709401-1148-43B4-A06C-79173393DD98}</Project>
+    <ProjectReference Include="..\DeployerPlatform\Deployer.NetFx\Deployer.NetFx.csproj">
+      <Project>{FBEDAF0E-E2ED-4005-8D83-F980FA67FEB2}</Project>
+      <Name>Deployer.NetFx</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DeployerPlatform\Deployer\Deployer.csproj">
+      <Project>{20D40DC1-0237-47A0-B169-B420159E341C}</Project>
       <Name>Deployer</Name>
     </ProjectReference>
   </ItemGroup>
