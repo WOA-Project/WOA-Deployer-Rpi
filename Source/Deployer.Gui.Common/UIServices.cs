@@ -1,4 +1,4 @@
-namespace Deployer.Gui.Core
+namespace Deployer.Gui.Common
 {
     public class UIServices
     {

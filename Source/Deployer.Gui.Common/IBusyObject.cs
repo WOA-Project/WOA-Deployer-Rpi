@@ -1,6 +1,6 @@
 using System;
 
-namespace Deployer.Gui.Core
+namespace Deployer.Gui.Common
 {
     public interface IBusy
     {

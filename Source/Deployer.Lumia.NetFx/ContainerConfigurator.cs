@@ -7,7 +7,6 @@ using Deployer.Execution;
 using Deployer.Filesystem.FullFx;
 using Deployer.FileSystem;
 using Deployer.Lumia.NetFx.PhoneInfo;
-using Deployer.Raspberry;
 using Deployer.Services;
 using Deployer.Tasks;
 using Grace.DependencyInjection;

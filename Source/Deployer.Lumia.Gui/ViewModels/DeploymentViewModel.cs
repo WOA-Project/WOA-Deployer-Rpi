@@ -2,7 +2,7 @@ using System;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using Deployer.Gui.Core;
+using Deployer.Gui.Common;
 using ReactiveUI;
 
 namespace Deployer.Lumia.Gui.ViewModels

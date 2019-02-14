@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
-using Deployer.Gui.Core;
 
 namespace Deployer.Gui.Common.Services
 {

@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Deployer.Gui.Core;
 using MahApps.Metro.Controls.Dialogs;
 
 namespace Deployer.Gui.Common.Services

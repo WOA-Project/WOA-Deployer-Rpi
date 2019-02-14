@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Deployer.Gui.Core
+namespace Deployer.Gui.Common
 {
     public interface IDialogService
     {

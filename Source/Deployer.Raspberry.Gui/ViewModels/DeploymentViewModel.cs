@@ -5,7 +5,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Deployer.FileSystem;
-using Deployer.Gui.Core;
+using Deployer.Gui.Common;
 using ReactiveUI;
 
 namespace Deployer.Raspberry.Gui.ViewModels

@@ -21,8 +21,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deployer.Raspberry.Gui", "D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deployer.Gui.Common", "Deployer.Gui.Common\Deployer.Gui.Common.csproj", "{AD8EA86C-AF60-4CCF-9CAA-07BBF5E039EC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Gui.Core", "Deployer.Gui.Core\Deployer.Gui.Core.csproj", "{4DDBED8A-6445-4E59-9E64-6FA3B7419052}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Tests", "Deployer.Tests\Deployer.Tests.csproj", "{6D253E1A-AB6A-470D-846B-C07EC8EB9089}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lumia", "Lumia", "{EAF0E67A-0310-428F-BCA3-0287771B8561}"
@@ -73,10 +71,6 @@ Global
 		{AD8EA86C-AF60-4CCF-9CAA-07BBF5E039EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD8EA86C-AF60-4CCF-9CAA-07BBF5E039EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD8EA86C-AF60-4CCF-9CAA-07BBF5E039EC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4DDBED8A-6445-4E59-9E64-6FA3B7419052}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4DDBED8A-6445-4E59-9E64-6FA3B7419052}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4DDBED8A-6445-4E59-9E64-6FA3B7419052}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4DDBED8A-6445-4E59-9E64-6FA3B7419052}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6D253E1A-AB6A-470D-846B-C07EC8EB9089}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6D253E1A-AB6A-470D-846B-C07EC8EB9089}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D253E1A-AB6A-470D-846B-C07EC8EB9089}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using ReactiveUI;
 using Serilog;
 
-namespace Deployer.Gui.Core
+namespace Deployer.Gui.Common
 {
     public class CommandWrapper<T1, T2> : ReactiveObject
     {
@@ -23,7 +23,7 @@ namespace Deployer.Gui.Core
 
         private async Task HandleException(Exception e)
         {
-            Log.Error(e, "An error has ocurred");
+            Log.Error(e, "An error has occurred");
             Log.Information($"Error: {e.Message}");
             await dialogService.ShowAlert(parent, Resources.ErrorTitle, $"{e.Message}");   
         }

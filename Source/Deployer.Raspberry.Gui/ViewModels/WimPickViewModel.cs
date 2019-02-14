@@ -7,7 +7,6 @@ using System.Reactive.Linq;
 using System.Runtime.InteropServices;
 using Deployer.Exceptions;
 using Deployer.Gui.Common;
-using Deployer.Gui.Core;
 using Deployer.Services.Wim;
 using ReactiveUI;
 using Serilog;

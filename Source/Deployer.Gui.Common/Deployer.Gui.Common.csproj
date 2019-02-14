@@ -48,11 +48,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusyButton.cs" />
+    <Compile Include="CommandWrapper.cs" />
+    <Compile Include="FilePickerMixin.cs" />
+    <Compile Include="FileTypeFilter.cs" />
+    <Compile Include="IBusyObject.cs" />
     <Compile Include="IconButton.cs" />
+    <Compile Include="IDialogService.cs" />
+    <Compile Include="IFilePicker.cs" />
     <Compile Include="ISettingsService.cs" />
+    <Compile Include="IViewService.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\FilePicker.cs" />
     <Compile Include="Services\ViewService.cs" />
+    <Compile Include="UIServices.cs" />
     <Compile Include="WimMetadataViewModel.cs" />
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -77,6 +90,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -98,10 +115,6 @@
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Deployer.Gui.Core\Deployer.Gui.Core.csproj">
-      <Project>{4DDBED8A-6445-4E59-9E64-6FA3B7419052}</Project>
-      <Name>Deployer.Gui.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Deployer\Deployer.csproj">
       <Project>{b0709401-1148-43b4-a06c-79173393dd98}</Project>
       <Name>Deployer</Name>

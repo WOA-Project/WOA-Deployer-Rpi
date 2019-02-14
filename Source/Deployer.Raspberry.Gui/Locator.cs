@@ -6,7 +6,6 @@ using Deployer.Execution;
 using Deployer.Filesystem.FullFx;
 using Deployer.Gui.Common;
 using Deployer.Gui.Common.Services;
-using Deployer.Gui.Core;
 using Deployer.Lumia.NetFx;
 using Deployer.Raspberry.Gui.Specifics;
 using Deployer.Raspberry.Gui.ViewModels;

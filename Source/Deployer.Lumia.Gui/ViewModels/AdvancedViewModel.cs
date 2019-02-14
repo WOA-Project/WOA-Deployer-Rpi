@@ -3,7 +3,6 @@ using System.Reactive;
 using System.Threading.Tasks;
 using ByteSizeLib;
 using Deployer.Gui.Common;
-using Deployer.Gui.Core;
 using ReactiveUI;
 
 namespace Deployer.Lumia.Gui.ViewModels

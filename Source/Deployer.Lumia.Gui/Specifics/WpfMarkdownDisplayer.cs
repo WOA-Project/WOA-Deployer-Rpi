@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Deployer.Gui.Core;
+using Deployer.Gui.Common;
 using Deployer.Lumia.Gui.ViewModels;
 using Deployer.Tasks;
 

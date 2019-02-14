@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Deployer.Gui.Core {
+namespace Deployer.Gui.Common {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Deployer.Gui.Core {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Deployer.Gui.Core.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Deployer.Gui.Common.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,7 +61,7 @@ namespace Deployer.Gui.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failure.
+        ///   Looks up a localized string similar to Error.
         /// </summary>
         internal static string ErrorTitle {
             get {
