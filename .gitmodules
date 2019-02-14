@@ -1,6 +1,3 @@
-[submodule "Source/Registry"]
-	path = Source/Registry
-	url = https://github.com/EricZimmerman/Registry.git
 [submodule "Source/DeployerPlatform"]
 	path = Source/DeployerPlatform
 	url = https://github.com/WOA-Project/Deployer-Platform.git
