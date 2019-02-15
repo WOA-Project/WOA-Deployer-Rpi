@@ -44,14 +44,7 @@
                                     <Run Text="{Binding Number, Mode=OneWay}"></Run>
                                     <Run Text="-"></Run>
                                     <Run Text="{Binding FriendlyName, Mode=OneWay}" FontWeight="Bold"></Run>
-                                    <Run Text="{Binding Size, Mode=OneWay, StringFormat='{}({0})'}"></Run>
-                                    <!--<TextBlock.Text>
-                                        <MultiBinding StringFormat="{}{0}: {1} - {2}">
-                                            <Binding Path="Number" />
-                                            <Binding Path="FriendlyName" />
-                                            <Binding Path="Size" />
-                                        </MultiBinding>
-                                    </TextBlock.Text>-->
+                                    <Run Text="{Binding Size, Mode=OneWay, StringFormat='{}({0})'}"></Run>                                   
                                 </TextBlock>
                             </Grid>
                             <DataTemplate.Triggers>
