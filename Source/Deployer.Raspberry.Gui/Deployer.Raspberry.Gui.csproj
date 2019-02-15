@@ -169,10 +169,6 @@
       <Link>Core\gpt.zip</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Deployer.Raspberry\Core\license.md">
-      <Link>Core\license.md</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="..\Deployer.Raspberry\Core\Tools\Etcher-Cli\x64\node_modules\drivelist\build\Release\drivelist.node">
       <Link>Core\Tools\Etcher-Cli\x64\node_modules\drivelist\build\Release\drivelist.node</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

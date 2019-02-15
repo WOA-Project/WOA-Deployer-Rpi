@@ -18,6 +18,7 @@ namespace Deployment.Console
         {
             if (double.IsNaN(progress))
             {
+                System.Console.WriteLine();
                 return;
             }
 
@@ -37,7 +38,7 @@ namespace Deployment.Console
 
         public void Dispose()
         {
-            progressUpdater?.Dispose();
+            progressUpdater?.Dispose();            
         }
     }
 }

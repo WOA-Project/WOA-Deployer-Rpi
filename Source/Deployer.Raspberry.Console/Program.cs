@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ByteSizeLib;
 using CommandLine;
 using Deployer;
+using Deployer.FileSystem;
 using Deployer.Lumia.NetFx;
 using Deployer.Raspberry;
 using Deployer.Tasks;
@@ -44,8 +45,6 @@ namespace Deployment.Console
         {
             var optionsProvider = new WindowsDeploymentOptionsProvider();
             
-            var deployer = GetDeployer(optionsProvider, subject);
-
             var parserResult = Parser.Default
                 .ParseArguments<WindowsDeploymentCmdOptions,
                         NonWindowsDeploymentCmdOptions>(args);
@@ -54,26 +53,31 @@ namespace Deployment.Console
                 .MapResult(
                     (WindowsDeploymentCmdOptions opts) =>
                     {
+                        var deployer = GetDeployer(optionsProvider, opts.DiskNumber, subject);
                         optionsProvider.Options = new WindowsDeploymentOptions
                         {
                             ImageIndex = opts.Index,
                             ImagePath = opts.WimImage,
-                            SizeReservedForWindows = ByteSize.FromGigaBytes(opts.ReservedSizeForWindowsInGb),
                             UseCompact = opts.UseCompact,
                         };
                         return deployer.Deploy();
                     },
-                    (NonWindowsDeploymentCmdOptions opts) => deployer.Deploy(),
+                    (NonWindowsDeploymentCmdOptions opts) =>
+                    {
+                        var deployer = GetDeployer(optionsProvider, opts.DiskNumber, subject);
+                        return deployer.Deploy();
+                    },
                     HandleErrors);
         }
 
-        private static IWoaDeployer GetDeployer(WindowsDeploymentOptionsProvider op, Subject<double> progress)
+        private static IWoaDeployer GetDeployer(WindowsDeploymentOptionsProvider op, int diskNumber, Subject<double> progress)
         {
             var container = new DependencyInjectionContainer();
 
             container.Configure(x =>
             {
                 x.Configure(op);
+                x.ExportFactory((ILowLevelApi lla) => new DeviceProvider() { Device = new RaspberryPi(lla, diskNumber)}).As<IDeviceProvider>().Lifestyle.Singleton();
                 x.Export<ConsoleMarkdownDisplayer>().As<IMarkdownDisplayer>();
                 x.ExportInstance(progress).As<IObserver<double>>();
             });

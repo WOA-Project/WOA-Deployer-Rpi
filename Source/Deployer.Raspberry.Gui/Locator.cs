@@ -38,6 +38,7 @@ namespace Deployer.Raspberry.Gui
             container.Configure(x =>
             {
                 x.Configure(optionsProvider);
+                x.Export<DeviceProvider>().As<IDeviceProvider>().Lifestyle.Singleton();
                 x.Export<WpfMarkdownDisplayer>().As<IMarkdownDisplayer>();
                 x.ExportFactory(() => new BehaviorSubject<double>(double.NaN))
                     .As<IObserver<double>>()

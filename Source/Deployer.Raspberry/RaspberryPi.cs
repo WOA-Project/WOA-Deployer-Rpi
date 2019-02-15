@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Deployer.FileSystem;
 using Serilog;
@@ -7,16 +7,28 @@ namespace Deployer.Raspberry
 {
     public class RaspberryPi : Device
     {
+        private readonly int diskNumber;
         private readonly Disk disk;
+
+        public RaspberryPi(ILowLevelApi lowLevelApi, int diskNumber) : base(lowLevelApi)
+        {
+            this.diskNumber = diskNumber;
+        }
 
         public RaspberryPi(ILowLevelApi lowLevelApi, Disk disk) : base(lowLevelApi)
         {
             this.disk = disk;
         }
 
-        public override Task<Disk> GetDeviceDisk()
+        public override async Task<Disk> GetDeviceDisk()
         {
-            return Task.FromResult(disk);
+            if (disk == null)
+            {
+                var disks = await LowLevelApi.GetDisks();
+                return disks.First(x => x.Number == diskNumber);
+            }
+
+            return disk;
         }      
 
         public override async Task<Volume> GetBootVolume()

@@ -68,10 +68,6 @@
       <Link>Core\gpt.zip</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\deployer.raspberry\core\license.md">
-      <Link>Core\license.md</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="..\deployer.raspberry\core\tools\etcher-cli\x64\node_modules\drivelist\build\release\drivelist.node">
       <Link>Core\Tools\Etcher-Cli\x64\node_modules\drivelist\build\Release\drivelist.node</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -166,6 +162,7 @@
   <ItemGroup>
     <None Include="..\deployer.raspberry\core\tools\etcher-cli\x64\etcher.exe">
       <Link>Core\Tools\Etcher-Cli\x64\etcher.exe</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +186,7 @@
   <ItemGroup>
     <None Include="..\deployer.raspberry\core\tools\etcher-cli\x86\etcher.exe">
       <Link>Core\Tools\Etcher-Cli\x86\etcher.exe</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
