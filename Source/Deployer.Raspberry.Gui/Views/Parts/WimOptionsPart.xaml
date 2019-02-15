@@ -7,7 +7,7 @@
              d:DesignHeight="450" d:DesignWidth="800" 
              DataContext="{Binding Source={StaticResource Locator}, Path=WimPickViewModel}"
              >
-    <GroupBox Header="Windows Image (.WIM)">
+    <GroupBox Header="Windows Image (.WIM)" Padding="15">
         <StackPanel VerticalAlignment="Center">
             <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="4">
                 Please, specify the Windows Image file (.wim) you wish to deploy.

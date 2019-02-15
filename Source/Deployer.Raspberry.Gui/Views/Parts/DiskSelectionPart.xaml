@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{d:DesignInstance viewModels1:DeploymentViewModel}"
              x:Name="UserControl">
-    <GroupBox Header="Drive selection" Padding="8">
+    <GroupBox Header="Drive selection" Padding="15">
         <GroupBox.Resources>
             <CollectionViewSource x:Key="Disks" Source="{Binding Disks}">
                 <CollectionViewSource.SortDescriptions>
@@ -40,13 +40,18 @@
                                 </Grid.ColumnDefinitions>
                                 <Image Source="/Assets/drive.png" />
                                 <TextBlock Margin="10, 0" x:Name="TextBlock" Grid.Column="1" VerticalAlignment="Center">
-                                    <TextBlock.Text>
+                                    <Run Text="Disk"></Run>
+                                    <Run Text="{Binding Number, Mode=OneWay}"></Run>
+                                    <Run Text="-"></Run>
+                                    <Run Text="{Binding FriendlyName, Mode=OneWay}" FontWeight="Bold"></Run>
+                                    <Run Text="{Binding Size, Mode=OneWay, StringFormat='{}({0})'}"></Run>
+                                    <!--<TextBlock.Text>
                                         <MultiBinding StringFormat="{}{0}: {1} - {2}">
                                             <Binding Path="Number" />
                                             <Binding Path="FriendlyName" />
                                             <Binding Path="Size" />
                                         </MultiBinding>
-                                    </TextBlock.Text>
+                                    </TextBlock.Text>-->
                                 </TextBlock>
                             </Grid>
                             <DataTemplate.Triggers>

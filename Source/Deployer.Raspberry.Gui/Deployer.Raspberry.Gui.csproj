@@ -254,18 +254,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\950.png" />
-    <Resource Include="Assets\950xl.png" />
     <Resource Include="Assets\appicon.ico" />
     <Resource Include="Assets\appicon.png" />
-    <Resource Include="Assets\disabledual.png" />
-    <Resource Include="Assets\dual.png" />
-    <Resource Include="Assets\full.png" />
-    <Resource Include="Assets\gears.png" />
-    <Resource Include="Assets\gpu.png" />
-    <Resource Include="Assets\inject-drivers.png" />
     <Resource Include="Assets\refresh.png" />
-    <Resource Include="Assets\windows-only.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\heart.png" />

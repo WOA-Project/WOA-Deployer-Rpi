@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using ByteSizeLib;
 using CommandLine;
 using Deployer;
-using Deployer.Lumia;
 using Deployer.Lumia.NetFx;
 using Deployer.Raspberry;
 using Deployer.Tasks;
@@ -55,7 +54,7 @@ namespace Deployment.Console
                 .MapResult(
                     (WindowsDeploymentCmdOptions opts) =>
                     {
-                        optionsProvider.Options = new WindowsDeploymentOptions()
+                        optionsProvider.Options = new WindowsDeploymentOptions
                         {
                             ImageIndex = opts.Index,
                             ImagePath = opts.WimImage,

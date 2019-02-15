@@ -53,9 +53,6 @@
     </Compile>
     <Compile Include="ConsoleDisplayUpdater.cs" />
     <Compile Include="ConsoleMarkdownDisplayer.cs" />
-    <Compile Include="Options\DisableDualBootCmdOptions.cs" />
-    <Compile Include="Options\EnableDualBootCmdOptions.cs" />
-    <Compile Include="Options\InstallGpuCmdOptions.cs" />
     <Compile Include="Options\NonWindowsDeploymentCmdOptions.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -165,9 +162,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Scripts\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="..\deployer.raspberry\core\tools\etcher-cli\x64\etcher.exe">
       <Link>Core\Tools\Etcher-Cli\x64\etcher.exe</Link>
@@ -212,6 +207,12 @@
     <None Include="..\deployer.raspberry\core\tools\etcher-cli\x86\node_modules\lzma-native\deps\bin_x86-64\liblzma.dll">
       <Link>Core\Tools\Etcher-Cli\x86\node_modules\lzma-native\deps\bin_x86-64\liblzma.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Deployer.Raspberry\Scripts\deployment.txt">
+      <Link>Scripts\deployment.txt</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

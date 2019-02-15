@@ -38,9 +38,9 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <UniformGrid Rows="1">
-                <parts:DiskSelectionPart Margin="8,0" />
-                <parts:WimOptionsPart  Margin="8,0" />
+            <UniformGrid Columns="1" >
+                <parts:DiskSelectionPart Margin="8" />
+                <parts:WimOptionsPart  Margin="8" />
             </UniformGrid>
 
             <common:IconButton Grid.Row="1" VerticalAlignment="Center" Command="{Binding FullInstallWrapper.Command}"
