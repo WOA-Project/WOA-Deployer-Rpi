@@ -6,6 +6,7 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Deployer.FileSystem;
 using Deployer.Gui.Common;
+using Deployer.Gui.Common.Services;
 using ReactiveUI;
 
 namespace Deployer.Raspberry.Gui.ViewModels
@@ -65,6 +66,11 @@ namespace Deployer.Raspberry.Gui.ViewModels
 
         private async Task Deploy()
         {
+            if (await uiServices.DialogService.ShowConfirmation(this, Resources.DeploymentConfirmationTitle, string.Format(Resources.DeploymentConfirmationMessage, SelectedDisk)) == DialogResult.No)
+            {
+                return;               
+            }
+
             var windowsDeploymentOptions = new WindowsDeploymentOptions
             {
                 ImagePath = wimPickViewModel.WimMetadata.Path,
@@ -77,8 +83,8 @@ namespace Deployer.Raspberry.Gui.ViewModels
 
             await deployer.Deploy();
 
-            await uiServices.DialogService.ShowAlert(this, Resources.Finished,
-                Resources.WindowsDeployedSuccessfully);
+            var messageViewModel = new MessageViewModel(Resources.WindowsDeployedSuccessfullyTitle, Resources.WindowsDeployedSuccessfully);
+            uiServices.ViewService.Show("MarkdownViewer", messageViewModel);
         }
 
         public CommandWrapper<Unit, Unit> FullInstallWrapper { get; set; }

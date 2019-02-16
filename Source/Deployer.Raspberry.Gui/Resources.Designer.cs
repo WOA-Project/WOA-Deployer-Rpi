@@ -70,11 +70,25 @@ namespace Deployer.Raspberry.Gui {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to install the GPU. Please, ensure that WOA is installed..
+        ///   Looks up a localized string similar to WARNING: The deployment operation will DELETE all the data in the selected disk:
+        ///
+        ///{0}
+        ///
+        ///Please, confirm that you want to continue.
+        ///.
         /// </summary>
-        public static string CannotInstallGpu {
+        public static string DeploymentConfirmationMessage {
             get {
-                return ResourceManager.GetString("CannotInstallGpu", resourceCulture);
+                return ResourceManager.GetString("DeploymentConfirmationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm deployment.
+        /// </summary>
+        public static string DeploymentConfirmationTitle {
+            get {
+                return ResourceManager.GetString("DeploymentConfirmationTitle", resourceCulture);
             }
         }
         
@@ -97,48 +111,11 @@ namespace Deployer.Raspberry.Gui {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dual Boot Disabled!.
-        /// </summary>
-        public static string DualBootDisabled {
-            get {
-                return ResourceManager.GetString("DualBootDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dual Boot Enabled!.
-        /// </summary>
-        public static string DualBootEnabled {
-            get {
-                return ResourceManager.GetString("DualBootEnabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Finished.
         /// </summary>
         public static string Finished {
             get {
                 return ResourceManager.GetString("Finished", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to # Final steps
-        ///
-        ///In order to finish the installation, you need to perform these steps manually.
-        ///
-        ///* Reboot into Windows 10.
-        ///* Go to the **Device Manager**
-        ///* Under **Unknown Devices**, look for for one described as **&apos;ACPI\MSHW1004\0
-        ///&apos;** 
-        ///  * **[Tip]** open each one by double clicking on them and look into the **Details** tab for this identifier. It should be one of the first 10 elements of the list.
-        ///  * Once you find it choose to *Update* it. 
-        ///  * In the driver update wizard, select &quot;Choose driver fr [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string InstallGpuManualSteps {
-            get {
-                return ResourceManager.GetString("InstallGpuManualSteps", resourceCulture);
             }
         }
         
@@ -157,25 +134,6 @@ namespace Deployer.Raspberry.Gui {
         public static string ManualStepsTitle {
             get {
                 return ResourceManager.GetString("ManualStepsTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sorry, there are no post-OOBE drivers available to inject.
-        ///The Core Package that is currently installed doesn&apos;t have an additional post-OOBE driver set..
-        /// </summary>
-        public static string NoPostOobeDrivers {
-            get {
-                return ResourceManager.GetString("NoPostOobeDrivers", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The phone is not a Lumia 950 XL.
-        /// </summary>
-        public static string PhoneIsNotLumia950XL {
-            get {
-                return ResourceManager.GetString("PhoneIsNotLumia950XL", resourceCulture);
             }
         }
         
@@ -211,7 +169,7 @@ namespace Deployer.Raspberry.Gui {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to WIM files.
+        ///   Looks up a localized string similar to Windows Images.
         /// </summary>
         public static string WimFilesFilter {
             get {
@@ -220,14 +178,30 @@ namespace Deployer.Raspberry.Gui {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Done!
-        ///Now, please, **eject the Phone safely** to avoid data corruption issues and reboot your Phone.
-        ///After reboot, choose &quot;Windows 10&quot; in the Boot Menu to start the Windows 10 ARM Setup.
-        ///Enjoy!.
+        ///   Looks up a localized string similar to # Done!
+        ///
+        ///Now, please, **eject the SD Card safely** to avoid data corruption issues and insert it into your Raspberry Pi. If it refuses to be ejected, restart your PC.
+        ///
+        ///## Booting directions
+        ///- Insert the Micro SD card into your Raspberry Pi
+        ///- Turn it on and wait for the UEFI console to load
+        ///- Type &quot;exit&quot; + press [ENTER] and you will be presented with the **UEFI interface**
+        ///- Go to the &apos;Boot Maintenance Manager&apos; menu and select &apos;Boot Options&apos;. Choose &apos;Change Boor Order&apos;
+        ///- Select &apos;Change the order&apos;
+        ///- [rest of string was truncated]&quot;;.
         /// </summary>
         public static string WindowsDeployedSuccessfully {
             get {
                 return ResourceManager.GetString("WindowsDeployedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deployment successful.
+        /// </summary>
+        public static string WindowsDeployedSuccessfullyTitle {
+            get {
+                return ResourceManager.GetString("WindowsDeployedSuccessfullyTitle", resourceCulture);
             }
         }
     }

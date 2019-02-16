@@ -102,6 +102,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Markdown.Styles.Default.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MarkdownViewerWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -261,10 +265,10 @@
     <Resource Include="Assets\drive.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\Deployer.Raspberry\Scripts\deployment.txt">
+    <None Include="..\Deployer.Raspberry\Scripts\deployment.txt">
       <Link>Scripts\deployment.txt</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Deployer.Raspberry\Core\Tools\Etcher-Cli\x64\node_modules\lzma-native\binding\liblzma.dll">

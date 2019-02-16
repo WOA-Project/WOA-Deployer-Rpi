@@ -4,12 +4,13 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-                 xmlns:Converters="http://metro.mahapps.com/winfx/xaml/shared"
+                 xmlns:converters="http://metro.mahapps.com/winfx/xaml/shared"
                  xmlns:parts="clr-namespace:Deployer.Raspberry.Gui.Views.Parts"
+                 xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                  mc:Ignorable="d"
                  DataContext="{Binding Source={StaticResource Locator}, Path=MainViewModel}"
                  mah:DialogParticipation.Register="{Binding}"
-                 Title="{Binding Title}" Width="800" Height="640"
+                 Title="{Binding Title}" Width="720" Height="640"
                  Icon="/Assets/appicon.png"
                  WindowStartupLocation="CenterScreen">
     <mah:MetroWindow.Resources>
@@ -18,7 +19,7 @@
             <Setter Property="TextElement.Foreground">
                 <Setter.Value>
 
-                        <MultiBinding Converter="{x:Static Converters:BackgroundToForegroundConverter.Instance}">
+                        <MultiBinding Converter="{x:Static converters:BackgroundToForegroundConverter.Instance}">
                             <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
                             <Binding Mode="OneWay"
                                      Path="Background"
@@ -33,16 +34,17 @@
         </Style>
     </mah:MetroWindow.Resources>
 
-    <!--<mah:MetroWindow.RightWindowCommands>
+    <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands>
-            <Button Command="{Binding DonateCommand}" ToolTip="Please, support this tool. Thanks in advance :)">
+            <Button Command="{Binding HelpCommand}" ToolTip="Do you need help?">
                 <StackPanel Orientation="Horizontal">
-                    <Image Height="16" VerticalAlignment="Center" Source="/Assets/heart.png" RenderOptions.BitmapScalingMode="HighQuality" />
-                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Donate" />
+                    <iconPacks:PackIconMaterial Kind="Help" />
+                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Help" />
                 </StackPanel>
             </Button>
         </mah:WindowCommands>
-    </mah:MetroWindow.RightWindowCommands>-->
+    </mah:MetroWindow.RightWindowCommands>
+
     <Grid>
 
         <Grid.RowDefinitions>
@@ -80,7 +82,7 @@
                 Style="{StaticResource DonateButtonStyle}">
             <Button.Content>
                 <StackPanel Orientation="Horizontal">
-                    <Image Height="16" VerticalAlignment="Center" Source="/Assets/heart.png" RenderOptions.BitmapScalingMode="HighQuality" />
+                    <iconPacks:PackIconMaterial Kind="CardsHeart" />
                     <TextBlock Margin="8 0 0 0" VerticalAlignment="Center" Text="Donate" />
                 </StackPanel>
             </Button.Content>

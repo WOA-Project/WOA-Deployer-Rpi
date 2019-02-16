@@ -46,8 +46,24 @@ namespace Deployer.Raspberry.Gui.ViewModels
         {
             get
             {
-                var value = uiServices.FilePicker.Pick(
-                    new List<(string, IEnumerable<string>)> {(Resources.WimFilesFilter, new[] {"install.wim"})},
+                var filters = new List<(string, IEnumerable<string>)>
+                {
+                    ("install.wim", new[]
+                    {
+                        "install.wim",
+                    }),
+                    ("Windows Images", new[]
+                    {
+                        "*.wim",
+                        "*.esd"
+                    }),
+                    ("All files", new[]
+                    {
+                        "*.*",
+                    }),
+                };
+
+                var value = uiServices.FilePicker.Pick(filters,
                     () => settingsService.WimFolder, x =>
                     {
                         settingsService.WimFolder = x;

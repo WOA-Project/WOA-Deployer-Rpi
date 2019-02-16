@@ -19,7 +19,8 @@
         <StackPanel VerticalAlignment="Center">
             
             <TextBlock TextWrapping="Wrap" Margin="0,8">
-                Please, select the <Bold>drive</Bold> where you want to deploy Windows 10 ARM64. This is, the <Bold>Micro SD</Bold> card from your Raspberry Pi.
+                Please, select the <Bold>drive</Bold> where you want to deploy Windows 10 ARM64. This is, the <Bold>Micro SD</Bold> card from your Raspberry Pi.<LineBreak />
+                    <Run Foreground="Red" FontWeight="Bold">WARNING:</Run> <Run>Be extra careful selecting the correct disk.</Run>                
             </TextBlock>
 
             <Grid>

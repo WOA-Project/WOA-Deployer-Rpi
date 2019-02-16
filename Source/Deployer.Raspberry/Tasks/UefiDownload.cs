@@ -4,43 +4,47 @@ using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Deployer.Execution;
+using Serilog;
 
 namespace Deployer.Raspberry.Tasks
 {
     [TaskDescription("Downloading UEFI")]
     public class UefiDownload : IDeploymentTask
     {
+        private readonly string destination;
         private readonly IGitHubClient githubCient;
         private readonly IFileSystemOperations fileSystemOperations;
-        private const string DownloadFolder = @"Downloaded\UEFI";
-
-        public UefiDownload(IGitHubClient githubCient, IFileSystemOperations fileSystemOperations)
+        
+        public UefiDownload(string destination, IGitHubClient githubCient, IFileSystemOperations fileSystemOperations)
         {
+            this.destination = destination;
             this.githubCient = githubCient;
             this.fileSystemOperations = fileSystemOperations;
         }
 
         public async Task Execute()
         {
-            if (fileSystemOperations.DirectoryExists(DownloadFolder))
+            if (fileSystemOperations.DirectoryExists(destination))
             {
+                Log.Warning("UEFI was already downloaded. Skipping download.");
                 return;
             }
 
             using (var stream = await githubCient.Open("https://github.com/andreiw/RaspberryPiPkg"))
             {
-                var zipArchive = new ZipArchive(stream, ZipArchiveMode.Read);
+                var zipArchive = await Observable.Start(() => new ZipArchive(stream, ZipArchiveMode.Read));
 
                 var mostRecentFolderEntry = GetMostRecentDirEntry(zipArchive);
 
                 var contents = zipArchive.Entries.Where(x => x.FullName.StartsWith(mostRecentFolderEntry.FullName) && !x.FullName.EndsWith("/"));
-                await ExtractContents(DownloadFolder, mostRecentFolderEntry, contents);
+                await ExtractContents(mostRecentFolderEntry, contents);
             }
         }
 
-        private async Task ExtractContents(string destination, ZipArchiveEntry baseEntry,
+        private async Task ExtractContents(ZipArchiveEntry baseEntry,
             IEnumerable<ZipArchiveEntry> entries)
         {
             foreach (var entry in entries)

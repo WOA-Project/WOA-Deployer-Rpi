@@ -17,5 +17,10 @@ namespace Deployer.Raspberry.Gui.ViewModels
         public ByteSize Size => disk.Size;
         public bool IsUsualTarget => Size > ByteSize.FromGigaBytes(14) && Size < ByteSize.FromGigaBytes(255);
         public Disk Disk => disk;
+
+        public override string ToString()
+        {
+            return $"Disk number {disk.Number}, {disk.FriendlyName}, Capacity: {disk.Size}";
+        }
     }
 }

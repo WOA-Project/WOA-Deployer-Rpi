@@ -28,7 +28,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel>
-            <TextBlock Margin="12,6,12,18" FontSize="16" TextWrapping="Wrap">Use this section to deploy or redeploy <Bold>Windows 10 ARM64</Bold> into your Phone.</TextBlock>
+            <TextBlock Margin="12,6,12,18" FontSize="16" TextWrapping="Wrap">Use this section to deploy or redeploy <Bold>Windows 10 ARM64</Bold> into your Raspberry Pi.</TextBlock>
         </StackPanel>
 
         <Grid Grid.Row="1">
@@ -47,7 +47,7 @@
                                IsBusy="{Binding FullInstallWrapper.IsExecuting}" Content="Deploy"
                                Height="50"                               
                                HorizontalAlignment="Center"
-                               ToolTip="Use this option to install Windows into a Phone that has just been unlocked.">
+                               ToolTip="Use this option to deploy Windows to your SD Card">
                 <common:IconButton.Resources>
 
                 </common:IconButton.Resources>

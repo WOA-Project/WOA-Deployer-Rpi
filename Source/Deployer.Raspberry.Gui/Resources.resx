@@ -118,10 +118,27 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="WindowsDeployedSuccessfully" xml:space="preserve">
-    <value>Done!
-Now, please, **eject the Phone safely** to avoid data corruption issues and reboot your Phone.
-After reboot, choose "Windows 10" in the Boot Menu to start the Windows 10 ARM Setup.
-Enjoy!</value>
+    <value># Done!
+
+Now, please, **eject the SD Card safely** to avoid data corruption issues and insert it into your Raspberry Pi. If it refuses to be ejected, restart your PC.
+
+## Booting directions
+- Insert the Micro SD card into your Raspberry Pi
+- Turn it on and wait for the UEFI console to load
+- Type "exit" + press [ENTER] and you will be presented with the **UEFI interface**
+- Go to the 'Boot Maintenance Manager' menu and select 'Boot Options'. Choose 'Change Boor Order'
+- Select 'Change the order'
+- Put the **'SD/MMC on Broadcom SDHOST'** as the first element.
+- **Save the changes**
+- Go back to the **Main Menu** and choose **'Boot Manager'**
+- Select **'SD/MMC on Broadcom SDHOST'** and Windows will boot.
+
+After some minutes, Windows Setup will start.
+
+## Support my work
+If this tool has been useful for you, please, consider a donation to support my work using the [**♥ Donate**](https://github.com/WOA-Project/WOA-Deployer-Rpi/blob/master/Docs/Donations.md) button. Thanks 😊
+
+Enjoy!!</value>
   </data>
   <data name="WarningNotice" xml:space="preserve">
     <value>- This tool comes with no warranty. 
@@ -136,58 +153,17 @@ By clicking "OK" you accept the aforementioned risks.</value>
   <data name="TermsOfUseTitle" xml:space="preserve">
     <value>Disclaimer Notice and Terms of Use</value>
   </data>
-  <data name="NoPostOobeDrivers" xml:space="preserve">
-    <value>Sorry, there are no post-OOBE drivers available to inject.
-The Core Package that is currently installed doesn't have an additional post-OOBE driver set.</value>
-  </data>
-  <data name="CannotInstallGpu" xml:space="preserve">
-    <value>Unable to install the GPU. Please, ensure that WOA is installed.</value>
-  </data>
   <data name="Finished" xml:space="preserve">
     <value>Finished</value>
   </data>
   <data name="WimFileNoValidArchitecture" xml:space="preserve">
     <value>The selected .WIM file doesn't contain any image for ARM64. Please, select a .wim file that targets this architecture.</value>
   </data>
-  <data name="InstallGpuManualSteps" xml:space="preserve">
-    <value># Final steps
-
-In order to finish the installation, you need to perform these steps manually.
-
-* Reboot into Windows 10.
-* Go to the **Device Manager**
-* Under **Unknown Devices**, look for for one described as **'ACPI\MSHW1004\0
-'** 
-  * **[Tip]** open each one by double clicking on them and look into the **Details** tab for this identifier. It should be one of the first 10 elements of the list.
-  * Once you find it choose to *Update* it. 
-  * In the driver update wizard, select "Choose driver from PC". 
-  * Select **'Browse**'.  
-  * Navigate to **'C:\Users\Public\OEMPanel'** and accept the driver. The driver should be found. After that, a *red warning dialog window* should appear because the driver is not signed. **Confirm** that you want to install it.
-* After the driver has been installed, your screen will become black for a while and it will automatically turn on again
-* Congratulations! You already have accelerated graphics!!
-
-# Known problems
-  After installting the driver, the phone **may crash, hang or reboot**. If it's unresponsive for around 1 minute, just force a soft reset by holding the [Power] button for 10 seconds.
-  Next time you boot your phone will have GPU installed ;)
-
-
-# WARNING
-Don't disable Dual Boot after installing the GPU drivers or the phone **will NOT boot** and you will have to flash the stock FFU.</value>
-  </data>
   <data name="ManualStepsTitle" xml:space="preserve">
     <value>Manual steps</value>
   </data>
-  <data name="PhoneIsNotLumia950XL" xml:space="preserve">
-    <value>The phone is not a Lumia 950 XL</value>
-  </data>
-  <data name="DualBootEnabled" xml:space="preserve">
-    <value>Dual Boot Enabled!</value>
-  </data>
   <data name="Done" xml:space="preserve">
     <value>Done</value>
-  </data>
-  <data name="DualBootDisabled" xml:space="preserve">
-    <value>Dual Boot Disabled!</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
     <value>WOA Deployer for Raspberry Pi v{0}</value>
@@ -196,6 +172,20 @@ Don't disable Dual Boot after installing the GPU drivers or the phone **will NOT
     <value>Invalid WIM file</value>
   </data>
   <data name="WimFilesFilter" xml:space="preserve">
-    <value>WIM files</value>
+    <value>Windows Images</value>
+  </data>
+  <data name="DeploymentConfirmationMessage" xml:space="preserve">
+    <value>WARNING: The deployment operation will DELETE all the data in the selected disk:
+
+{0}
+
+Please, confirm that you want to continue.
+</value>
+  </data>
+  <data name="DeploymentConfirmationTitle" xml:space="preserve">
+    <value>Confirm deployment</value>
+  </data>
+  <data name="WindowsDeployedSuccessfullyTitle" xml:space="preserve">
+    <value>Deployment successful</value>
   </data>
 </root>

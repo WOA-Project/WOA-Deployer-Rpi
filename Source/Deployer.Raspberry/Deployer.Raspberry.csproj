@@ -28,6 +28,9 @@
     <None Update="Core\Developer Menu\ui\boot.ums.waiting.bmpx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Scripts\deployment - Copy.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Scripts\deployment.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
