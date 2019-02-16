@@ -44,7 +44,7 @@ namespace Deployer.Lumia.NetFx
             block.Export<FileSystemOperations>().As<IFileSystemOperations>();
             block.Export<BcdInvokerFactory>().As<IBcdInvokerFactory>();
             block.Export<WindowsDeployer>().As<IWindowsDeployer>();
-            block.Export<GitHubDownloader>().As<IGitHubDownloader>();
+            block.Export<GitHubClient>().As<IGitHubClient>();
             block.Export<RaspberryDisklayoutPreparer>().As<IDisklayoutPreparer>();
             block.Export<ImageFlasher>().As<IImageFlasher>();
             block.Export<DismImageService>().As<IWindowsImageService>();

@@ -12,13 +12,13 @@ namespace Deployer.Raspberry.Tasks
     [TaskDescription("Downloading UEFI")]
     public class UefiDownload : IDeploymentTask
     {
-        private readonly IGitHubDownloader downloader;
+        private readonly IGitHubClient githubCient;
         private readonly IFileSystemOperations fileSystemOperations;
         private const string DownloadFolder = @"Downloaded\UEFI";
 
-        public UefiDownload(IGitHubDownloader downloader, IFileSystemOperations fileSystemOperations)
+        public UefiDownload(IGitHubClient githubCient, IFileSystemOperations fileSystemOperations)
         {
-            this.downloader = downloader;
+            this.githubCient = githubCient;
             this.fileSystemOperations = fileSystemOperations;
         }
 
@@ -29,7 +29,7 @@ namespace Deployer.Raspberry.Tasks
                 return;
             }
 
-            using (var stream = await downloader.OpenZipStream("https://github.com/andreiw/RaspberryPiPkg"))
+            using (var stream = await githubCient.Open("https://github.com/andreiw/RaspberryPiPkg"))
             {
                 var zipArchive = new ZipArchive(stream, ZipArchiveMode.Read);
 
