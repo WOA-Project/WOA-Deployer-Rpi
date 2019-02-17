@@ -11,8 +11,6 @@
                TargetType="Paragraph">
             <Setter Property="FontSize"
                     Value="36" />
-            <Setter Property="Foreground"
-                    Value="#ff000000" />
             <Setter Property="FontWeight"
                     Value="Light" />
         </Style>
@@ -21,8 +19,6 @@
                TargetType="Paragraph">
             <Setter Property="FontSize"
                     Value="20" />
-            <Setter Property="Foreground"
-                    Value="#ff000000" />
             <Setter Property="FontWeight"
                     Value="Light" />
         </Style>
@@ -31,8 +27,6 @@
                TargetType="Paragraph">
             <Setter Property="FontSize"
                     Value="20" />
-            <Setter Property="Foreground"
-                    Value="#99000000" />
             <Setter Property="FontWeight"
                     Value="Light" />
         </Style>
@@ -41,8 +35,7 @@
                TargetType="Paragraph">
             <Setter Property="FontSize"
                     Value="14" />
-            <Setter Property="Foreground"
-                    Value="#99000000" />
+
             <Setter Property="FontWeight"
                     Value="Light" />
         </Style>
