@@ -44,9 +44,7 @@ namespace Deployer.Raspberry.Gui.ViewModels
             RefreshDisksCommandWrapper = new CommandWrapper<Unit, ICollection<Disk>>(this,
                 ReactiveCommand.CreateFromTask(lowLevelApi.GetDisks), uiServices.DialogService);
             disks = RefreshDisksCommandWrapper.Command
-                .Select(x => x
-                    .Where(y => !y.IsBoot && !y.IsSystem && !y.IsOffline)
-                    .Select(disk => new DiskViewModel(disk)))
+                .Select(x => x.Select(disk => new DiskViewModel(disk)))
                 .ToProperty(this, x => x.Disks);
 
             this.WhenAnyValue(x => x.SelectedDisk).Where(x => x != null).Subscribe(x => deviceProvider.Device = new RaspberryPi(lowLevelApi, x.Disk));
