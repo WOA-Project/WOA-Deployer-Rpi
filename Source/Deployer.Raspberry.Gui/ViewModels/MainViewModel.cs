@@ -23,7 +23,7 @@ namespace Deployer.Raspberry.Gui.ViewModels
 
         private ObservableAsPropertyHelper<RenderedLogEvent> statusHelper;
         private readonly ObservableAsPropertyHelper<bool> isBusyHelper;
-        private const string DonationLink = "https://github.com/WoA-project/WOA-Deployer/blob/master/Docs/Donations.md";
+        private const string DonationLink = "https://github.com/WOA-Project/WOA-Deployer-Rpi/blob/master/Docs/Donations.md";
         private const string HelpLink = "https://github.com/WOA-Project/WOA-Deployer-Rpi#need-help";
 
         public MainViewModel(IObservable<LogEvent> events, 
