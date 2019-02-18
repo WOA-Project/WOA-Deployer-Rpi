@@ -307,10 +307,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Deployer.Raspberry.Console\Deployer.Raspberry.Console.csproj">
-      <Project>{16500914-e053-433e-9b6a-27d4a5717130}</Project>
-      <Name>Deployer.Raspberry.Console</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Deployer.Raspberry.NetFx\Deployer.Raspberry.NetFx.csproj">
       <Project>{2abbf26a-2c87-4657-861e-08ec55dead77}</Project>
       <Name>Deployer.Raspberry.NetFx</Name>
