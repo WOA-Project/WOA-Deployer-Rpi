@@ -25,7 +25,6 @@ namespace Deployer.Raspberry.Gui
             IObservable<LogEvent> logEvents = null;
 
             IViewService viewService = new ViewService();
-            viewService.Register("MarkdownViewer", typeof(MarkdownViewerWindow));
 
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.RollingFile(@"Logs\Log-{Date}.txt")
@@ -50,7 +49,7 @@ namespace Deployer.Raspberry.Gui
                 x.Export<DeploymentViewModel>().ByInterfaces().As<DeploymentViewModel>().Lifestyle.Singleton();
                 x.Export<UIServices>();
                 x.ExportFactory(() => viewService).As<IViewService>();
-                x.Export<DialogService>().As<IDialogService>();
+                x.Export<Dialog>().ByInterfaces();
                 x.Export<FilePicker>().As<IFilePicker>();
                 x.Export<SettingsService>().As<ISettingsService>();
                 x.ExportFactory(() => DialogCoordinator.Instance).As<IDialogCoordinator>();

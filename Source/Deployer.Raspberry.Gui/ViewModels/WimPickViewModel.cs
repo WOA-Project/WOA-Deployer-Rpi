@@ -31,7 +31,7 @@ namespace Deployer.Raspberry.Gui.ViewModels
             PickWimFileCommand.ThrownExceptions.Subscribe(e =>
             {
                 Log.Error(e, "WIM file error");
-                this.uiServices.DialogService.ShowAlert(this, Resources.InvalidWimFile, e.Message);
+                this.uiServices.Dialog.ShowAlert(this, Resources.InvalidWimFile, e.Message);
             });
 
             hasWimHelper = this.WhenAnyValue(model => model.WimMetadata, (WimMetadataViewModel x) => x != null)

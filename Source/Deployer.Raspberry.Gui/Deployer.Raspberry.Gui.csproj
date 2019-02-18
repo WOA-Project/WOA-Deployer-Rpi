@@ -86,10 +86,6 @@
     </Compile>
     <Compile Include="Specifics\SettingsService.cs" />
     <Compile Include="Specifics\WpfMarkdownDisplayer.cs" />
-    <Page Include="Views\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -98,15 +94,7 @@
     <Compile Include="ViewModels\WimPickViewModel.cs" />
     <Compile Include="Locator.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="Views\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="Views\Markdown.Styles.Default.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\MarkdownViewerWindow.xaml">
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -136,8 +124,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Views\MarkdownViewerWindow.xaml.cs">
-      <DependentUpon>MarkdownViewerWindow.xaml</DependentUpon>
+    <Compile Include="Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Parts\AdvancedPart.xaml.cs">
       <DependentUpon>AdvancedPart.xaml</DependentUpon>

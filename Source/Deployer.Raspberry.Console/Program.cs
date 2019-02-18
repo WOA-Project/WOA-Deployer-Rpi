@@ -77,6 +77,7 @@ namespace Deployment.Console
             container.Configure(x =>
             {
                 x.Configure(op);
+                x.Export<ConsoleMarkdownDialog>().As<IMarkdownDialog>();
                 x.ExportFactory((ILowLevelApi lla) => new DeviceProvider() { Device = new RaspberryPi(lla, diskNumber)}).As<IDeviceProvider>().Lifestyle.Singleton();
                 x.Export<ConsoleMarkdownDisplayer>().As<IMarkdownDisplayer>();
                 x.ExportInstance(progress).As<IObserver<double>>();

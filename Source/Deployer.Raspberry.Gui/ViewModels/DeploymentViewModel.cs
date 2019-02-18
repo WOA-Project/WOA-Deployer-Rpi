@@ -37,12 +37,12 @@ namespace Deployer.Raspberry.Gui.ViewModels
                 .Select(metadata => metadata != null);
 
             FullInstallWrapper = new CommandWrapper<Unit, Unit>(this,
-                ReactiveCommand.CreateFromTask(Deploy, isSelectedWim), uiServices.DialogService);
+                ReactiveCommand.CreateFromTask(Deploy, isSelectedWim), uiServices.Dialog);
             IsBusyObservable = FullInstallWrapper.Command.IsExecuting;
             isBusy = IsBusyObservable.ToProperty(this, model => model.IsBusy);
 
             RefreshDisksCommandWrapper = new CommandWrapper<Unit, ICollection<Disk>>(this,
-                ReactiveCommand.CreateFromTask(lowLevelApi.GetDisks), uiServices.DialogService);
+                ReactiveCommand.CreateFromTask(lowLevelApi.GetDisks), uiServices.Dialog);
             disks = RefreshDisksCommandWrapper.Command
                 .Select(x => x.Select(disk => new DiskViewModel(disk)))
                 .ToProperty(this, x => x.Disks);
@@ -64,7 +64,7 @@ namespace Deployer.Raspberry.Gui.ViewModels
 
         private async Task Deploy()
         {
-            if (await uiServices.DialogService.ShowConfirmation(this, Resources.DeploymentConfirmationTitle, string.Format(Resources.DeploymentConfirmationMessage, SelectedDisk)) == DialogResult.No)
+            if (await uiServices.Dialog.ShowConfirmation(this, Resources.DeploymentConfirmationTitle, string.Format(Resources.DeploymentConfirmationMessage, SelectedDisk)) == DialogResult.No)
             {
                 return;               
             }
@@ -81,8 +81,10 @@ namespace Deployer.Raspberry.Gui.ViewModels
 
             await deployer.Deploy();
 
-            var messageViewModel = new MessageViewModel(Resources.WindowsDeployedSuccessfullyTitle, Resources.WindowsDeployedSuccessfully);
-            uiServices.ViewService.Show("MarkdownViewer", messageViewModel);
+            await uiServices.Dialog.PickOptions(Resources.WindowsDeployedSuccessfully, new List<Option>()
+            {
+                new Option("Close")
+            });
         }
 
         public CommandWrapper<Unit, Unit> FullInstallWrapper { get; set; }

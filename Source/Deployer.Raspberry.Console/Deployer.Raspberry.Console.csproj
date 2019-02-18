@@ -52,6 +52,7 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="ConsoleDisplayUpdater.cs" />
+    <Compile Include="ConsoleMarkdownDialog.cs" />
     <Compile Include="ConsoleMarkdownDisplayer.cs" />
     <Compile Include="Options\NonWindowsDeploymentCmdOptions.cs" />
     <Compile Include="Resources.Designer.cs">
