@@ -12,13 +12,13 @@ using Serilog;
 namespace Deployer.Raspberry.Tasks
 {
     [TaskDescription("Downloading UEFI")]
-    public class UefiDownload : IDeploymentTask
+    public class DownloadUefi : IDeploymentTask
     {
         private readonly string destination;
         private readonly IGitHubClient githubCient;
         private readonly IFileSystemOperations fileSystemOperations;
         
-        public UefiDownload(string destination, IGitHubClient githubCient, IFileSystemOperations fileSystemOperations)
+        public DownloadUefi(string destination, IGitHubClient githubCient, IFileSystemOperations fileSystemOperations)
         {
             this.destination = destination;
             this.githubCient = githubCient;
