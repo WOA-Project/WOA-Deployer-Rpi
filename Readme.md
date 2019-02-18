@@ -54,7 +54,7 @@ This WOA Deployer is possible because the great community behind it. I would lik
   - Special thanks to Terry Moore for all the great support and commitment, and for setting up the online presence for the project and its insfrastructure.
 - Ard Bisheuvel for initial ATF and UEFI ports
 - [Googulator](https://github.com/Googulator) for his method to install WoA in the Raspberry Pi
-- Bas Timmer ([@NTauthority](https://twitter.com/ntauthority)) was the dude that left ample thick hints that led to the development of HypDXe and the first bootable WoA builds
+- Bas Timmer ([@NTauthority](https://twitter.com/ntauthority)) for leaving ample thick hints that led to the development of HypDXe and the first bootable WOA builds
 - Microsoft for their original [32-bit UEFI for Pi](https://github.com/ms-iot/RPi-UEFI), [Windows BSP drivers](https://github.com/ms-iot/rpi-iotcore), and for removing the HAL check that required HypDxe in the first place, so now we can run any new build.
 - Mario Bălănică for his [awesome tool](https://www.worproject.ml), and for tips and support :)
 	- daveb77
