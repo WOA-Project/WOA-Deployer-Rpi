@@ -54,6 +54,8 @@ This WOA Deployer is possible because the great community behind it. I would lik
   - Special thanks to Terry Moore for all the great support and commitment, and for setting up the online presence for the project and its insfrastructure.
 - Ard Bisheuvel for initial ATF and UEFI ports
 - [Googulator](https://github.com/Googulator) for his method to install WoA in the Raspberry Pi
+- Bas Timmer ([@NTauthority](https://twitter.com/ntauthority)) was the dude that left ample thick hints that led to the development of HypDXe and the first bootable WoA builds
+- Microsoft for their original [32-bit UEFI for Pi](https://github.com/ms-iot/RPi-UEFI), [Windows BSP drivers](https://github.com/ms-iot/rpi-iotcore), and for removing the HAL check that required HypDxe in the first place, so now we can run any new build.
 - Mario Bălănică for his [awesome tool](https://www.worproject.ml), and for tips and support :)
 	- daveb77
     - thchi12
@@ -70,9 +72,10 @@ This WOA Deployer is possible because the great community behind it. I would lik
 In addition to:
 
 - [Eric Zimmerman](https://github.com/EricZimmerman) for [The Registry Project](https://github.com/EricZimmerman/Registry)
-- [Jan Karger](https://github.com/punker76) [MahApps.Metro](https://mahapps.com)
+- [Jan Karger](https://github.com/punker76) for his wonderful [MahApps.Metro](https://mahapps.com)
 - [ReactiveUI](https://reactiveui.net)
 - [Adam Hathcock](https://github.com/adamhathcock) for [SharpCompress](https://github.com/adamhathcock/sharpcompress)
+- [Etcher](https://www.balena.io/etcher/), the perfect tool for flashing.
 
 And our wonderful group at Telegram for their testing and support!
 - [RaspberryPiWOA](https://t.me/raspberrypiwoa)
