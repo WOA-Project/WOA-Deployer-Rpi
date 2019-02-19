@@ -19,7 +19,7 @@ Please keep reading carefully. All you need is here.
 
 # Download it
 
-Download the **[latest version](https://github.com/SuperJMN/WoA-Installer/releases/latest)** 
+Download the **[latest version](https://github.com/WOA-Project/WOA-Deployer-Rpi/releases/latest)** 
 
 # Executing the tool
 1. Extract the .zip to a folder in you PC
