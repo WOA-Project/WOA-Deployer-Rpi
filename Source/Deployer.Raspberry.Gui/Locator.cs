@@ -5,7 +5,6 @@ using Deployer.Gui.Common.Services;
 using Deployer.Lumia.NetFx;
 using Deployer.Raspberry.Gui.Specifics;
 using Deployer.Raspberry.Gui.ViewModels;
-using Deployer.Raspberry.Gui.Views;
 using Deployer.Tasks;
 using Grace.DependencyInjection;
 using MahApps.Metro.Controls.Dialogs;
@@ -17,7 +16,7 @@ namespace Deployer.Raspberry.Gui
     public class Locator
     {
         private readonly DependencyInjectionContainer container;
-        
+
         public Locator()
         {
             container = new DependencyInjectionContainer();
@@ -31,6 +30,8 @@ namespace Deployer.Raspberry.Gui
                 .WriteTo.Observers(x => logEvents = x)
                 .MinimumLevel.Verbose()
                 .CreateLogger();
+
+            UpdateChecker.CheckForUpdates(AppProperties.GitHubBaseUrl);
 
             var optionsProvider = new WindowsDeploymentOptionsProvider();
 

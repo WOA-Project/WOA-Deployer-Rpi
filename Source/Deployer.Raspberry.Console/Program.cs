@@ -3,23 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
-using ByteSizeLib;
 using CommandLine;
-using Deployer;
 using Deployer.FileSystem;
 using Deployer.Lumia.NetFx;
-using Deployer.Raspberry;
+using Deployer.Raspberry.Console.Options;
 using Deployer.Tasks;
-using Deployment.Console.Options;
 using Grace.DependencyInjection;
 using Serilog;
 using Serilog.Events;
 
-namespace Deployment.Console
+namespace Deployer.Raspberry.Console
 {
-    internal static class Program
+    public static class Program
     {
-        private static async Task Main(string[] args)
+        public static async Task Main(string[] args)
         {
             ConfigureLogger();
 

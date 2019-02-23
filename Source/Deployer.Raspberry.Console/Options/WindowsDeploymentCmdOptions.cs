@@ -1,6 +1,6 @@
 ﻿using CommandLine;
 
-namespace Deployment.Console.Options
+namespace Deployer.Raspberry.Console.Options
 {
     [Verb("deploy", HelpText = "Executes a Windows deployment script")]
     public class WindowsDeploymentCmdOptions

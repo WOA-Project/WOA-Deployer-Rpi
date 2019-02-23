@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Deployment.Console
+namespace Deployer.Raspberry.Console
 {
     public class ConsoleDisplayUpdater : IDisposable
     {

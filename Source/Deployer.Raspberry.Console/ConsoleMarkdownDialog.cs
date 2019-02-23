@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Deployer;
 
-namespace Deployment.Console
+namespace Deployer.Raspberry.Console
 {
     internal class ConsoleMarkdownDialog : IMarkdownDialog
     {
