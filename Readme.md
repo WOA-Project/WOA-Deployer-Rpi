@@ -15,7 +15,7 @@ Please keep reading carefully. All you need is here.
 
 ### Additional requirements
 - To run WOA Deployer you need a recent version of Windows 10 (please, use the latest to ensure it'll run correctly, don't open issues otherwise)
-- .NET Framework 4.6.1 (should come included in recent versions of Windows )
+- .NET Framework 4.6.1 (should come included in recent versions of Windows)
 
 # Download it
 
