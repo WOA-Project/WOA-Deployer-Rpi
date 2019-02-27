@@ -15,7 +15,7 @@ Please keep reading carefully. All you need is here.
 
 ### Additional requirements
 - To run WOA Deployer you need a recent version of Windows 10 (please, use the latest to ensure it'll run correctly, don't open issues otherwise)
-- .NET Framework 4.6.1 (should come included in recent versions of Windows 
+- .NET Framework 4.6.1 (should come included in recent versions of Windows)
 
 # Download it
 
@@ -41,7 +41,7 @@ Please, don't forget that the RaspberryPi WOA Project is supported by other indi
 Then visit our projects website at https://pi64.win, the one-stop solution for all your questions 😊
 
 It's also recommended that you read the [FAQ 📘](https://pi64.win/)
-And, of coruse, don't hesitate to join our great [Telegram group 📱](https://t.me/joinchat/ACWtm01aRdQuRAu1d3kW7Q)
+And, of course, don't hesitate to join our great [Telegram group 📱](https://t.me/joinchat/ACWtm01aRdQuRAu1d3kW7Q)
 
 # Credits and Acknowledgements
 
@@ -52,7 +52,7 @@ This WOA Deployer is possible because the great community behind it. I would lik
   - for porting their **TrueTask USB stack** to Windows 10 ARM64, and allowing non-commercial use with this project ([see license](Docs/mcci_license.md))
   - for funding the site of the project http://pi64.win and the discourse site http://discourse.pi64.win
   - Special thanks to Terry Moore for all the great support and commitment, and for setting up the online presence for the project and its insfrastructure.
-- Ard Bisheuvel for initial ATF and UEFI ports
+- [Ard Bisheuvel](http://www.workofard.com/2017/02/uefi-on-the-pi/) for initial ATF and UEFI ports
 - [Googulator](https://github.com/Googulator) for his method to install WoA in the Raspberry Pi
 - Bas Timmer ([@NTauthority](https://twitter.com/ntauthority)) for leaving ample thick hints that led to the development of HypDXe and the first bootable WOA builds
 - Microsoft for their original [32-bit UEFI for Pi](https://github.com/ms-iot/RPi-UEFI), [Windows BSP drivers](https://github.com/ms-iot/rpi-iotcore), and for removing the HAL check that required HypDxe in the first place, so now we can run any new build.
