@@ -22,7 +22,7 @@ Please keep reading carefully. All you need is here.
 Download the **[latest version](https://github.com/WOA-Project/WOA-Deployer-Rpi/releases/latest)** 
 
 # Executing the tool
-1. Extract the .zip to a folder in you PC
+1. Extract the .zip to a folder in your PC
 2. Navigate to the GUI folder
 3. Find the .exe file
 4. Run it
@@ -51,9 +51,9 @@ This WOA Deployer is possible because the great community behind it. I would lik
 - [MCCI](https://mcci.com/) for their great contribution to the RaspberryPI WOA project:
   - for porting their **TrueTask USB stack** to Windows 10 ARM64, and allowing non-commercial use with this project ([see license](Docs/mcci_license.md))
   - for funding the site of the project http://pi64.win and the discourse site http://discourse.pi64.win
-  - Special thanks to Terry Moore for all the great support and commitment, and for setting up the online presence for the project and its insfrastructure.
+  - Special thanks to Terry Moore for all the great support and commitment, and for setting up the online presence for the project and its infrastructure.
 - [Ard Bisheuvel](http://www.workofard.com/2017/02/uefi-on-the-pi/) for initial ATF and UEFI ports
-- [Googulator](https://github.com/Googulator) for his method to install WoA in the Raspberry Pi
+- [Googulator](https://github.com/Googulator) for his method to install WOA in the Raspberry Pi
 - Bas Timmer ([@NTauthority](https://twitter.com/ntauthority)) for leaving ample thick hints that led to the development of HypDXe and the first bootable WOA builds
 - Microsoft for their original [32-bit UEFI for Pi](https://github.com/ms-iot/RPi-UEFI), [Windows BSP drivers](https://github.com/ms-iot/rpi-iotcore), and for removing the HAL check that required HypDxe in the first place, so now we can run any new build.
 - Mario Bălănică for his [awesome tool](https://www.worproject.ml), and for tips and support :)
