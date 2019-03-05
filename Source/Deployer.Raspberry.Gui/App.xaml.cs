@@ -3,8 +3,6 @@ using System.Windows;
 using Deployer.Gui.Common;
 using Deployer.Raspberry.Console;
 using Deployer.Raspberry.Gui.Views;
-using Serilog;
-
 
 namespace Deployer.Raspberry.Gui
 {

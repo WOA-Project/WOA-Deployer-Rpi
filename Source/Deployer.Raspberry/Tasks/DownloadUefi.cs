@@ -15,13 +15,11 @@ namespace Deployer.Raspberry.Tasks
     public class DownloadUefi : IDeploymentTask
     {
         private readonly string destination;
-        private readonly IGitHubClient githubCient;
         private readonly IFileSystemOperations fileSystemOperations;
         
-        public DownloadUefi(string destination, IGitHubClient githubCient, IFileSystemOperations fileSystemOperations)
+        public DownloadUefi(string destination, IFileSystemOperations fileSystemOperations)
         {
             this.destination = destination;
-            this.githubCient = githubCient;
             this.fileSystemOperations = fileSystemOperations;
         }
 
@@ -33,12 +31,10 @@ namespace Deployer.Raspberry.Tasks
                 return;
             }
 
-            using (var stream = await githubCient.Open("https://github.com/andreiw/RaspberryPiPkg"))
+            using (var stream = await GitHubMixin.OpenBranchStream("https://github.com/andreiw/RaspberryPiPkg"))
             {
                 var zipArchive = await Observable.Start(() => new ZipArchive(stream, ZipArchiveMode.Read));
-
                 var mostRecentFolderEntry = GetMostRecentDirEntry(zipArchive);
-
                 var contents = zipArchive.Entries.Where(x => x.FullName.StartsWith(mostRecentFolderEntry.FullName) && !x.FullName.EndsWith("/"));
                 await ExtractContents(mostRecentFolderEntry, contents);
             }
