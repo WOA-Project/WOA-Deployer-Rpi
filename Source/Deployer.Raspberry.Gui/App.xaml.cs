@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using Deployer.Gui.Common;
 using Deployer.Raspberry.Console;
@@ -36,7 +37,7 @@ namespace Deployer.Raspberry.Gui
         {
             UpdateChecker.CheckForUpdates(AppProperties.GitHubBaseUrl);
             
-            ConsoleEmbedder.ExecuteInsideConsole(() => Program.Main(args).Wait());
+            ConsoleEmbedder.ExecuteInsideConsole(() => Task.Run(() => Program.Main(args)).Wait());
             Shutdown();
         }
     }
