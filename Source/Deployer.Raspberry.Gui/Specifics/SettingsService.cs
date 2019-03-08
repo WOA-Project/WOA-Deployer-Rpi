@@ -1,4 +1,4 @@
-﻿using Deployer.Gui.Common;
+﻿using Deployer.Gui;
 using Deployer.Raspberry.Gui.Properties;
 
 namespace Deployer.Raspberry.Gui.Specifics

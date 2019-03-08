@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Deployer.Gui.Common;
+using Deployer.Gui;
 using Deployer.Raspberry.Gui.ViewModels;
 using Deployer.Tasks;
 

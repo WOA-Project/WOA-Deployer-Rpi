@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Deployer.Execution;
+using Deployer.Tasks;
+using Serilog;
+using SharpCompress.Archives.Zip;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
-using System.IO.Compression;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
-using Deployer.Execution;
-using Serilog;
 
 namespace Deployer.Raspberry.Tasks
 {
@@ -16,11 +15,15 @@ namespace Deployer.Raspberry.Tasks
     {
         private readonly string destination;
         private readonly IFileSystemOperations fileSystemOperations;
-        
-        public DownloadUefi(string destination, IFileSystemOperations fileSystemOperations)
+        private readonly IZipExtractor extractor;
+        private readonly IObserver<double> progressObserver;
+
+        public DownloadUefi(string destination, IFileSystemOperations fileSystemOperations, IZipExtractor extractor, IObserver<double> progressObserver)
         {
             this.destination = destination;
             this.fileSystemOperations = fileSystemOperations;
+            this.extractor = extractor;
+            this.progressObserver = progressObserver;
         }
 
         public async Task Execute()
@@ -31,61 +34,33 @@ namespace Deployer.Raspberry.Tasks
                 return;
             }
 
-            using (var stream = await GitHubMixin.OpenBranchStream("https://github.com/andreiw/RaspberryPiPkg"))
+            using (var stream = await GitHubMixin.GetBranchZippedStream("https://github.com/andreiw/RaspberryPiPkg", progressObserver: progressObserver))
             {
-                var zipArchive = await Observable.Start(() => new ZipArchive(stream, ZipArchiveMode.Read));
-                var mostRecentFolderEntry = GetMostRecentDirEntry(zipArchive);
-                var contents = zipArchive.Entries.Where(x => x.FullName.StartsWith(mostRecentFolderEntry.FullName) && !x.FullName.EndsWith("/"));
-                await ExtractContents(mostRecentFolderEntry, contents);
+                await extractor.ExtractRelativeFolder(stream, GetMostRecentDirEntry, destination, progressObserver);
             }
         }
 
-        private async Task ExtractContents(ZipArchiveEntry baseEntry,
-            IEnumerable<ZipArchiveEntry> entries)
+        private static ZipArchiveEntry GetMostRecentDirEntry(IEnumerable<ZipArchiveEntry> entries)
         {
-            foreach (var entry in entries)
+            var split = from dir in entries
+                where dir.IsDirectory
+                select new
             {
-                var filePath = entry.FullName.Substring(baseEntry.FullName.Length);
+                Directory = dir,
+                Parts = dir.Key.Split('/'),
+            };
 
-                var destFile = Path.Combine(destination, filePath.Replace("/", "\\"));
-                var dir = Path.GetDirectoryName(destFile);
-                if (!fileSystemOperations.DirectoryExists(dir))
-                {
-                    fileSystemOperations.CreateDirectory(dir);
-                }
-
-                using (var destStream = File.Open(destFile, FileMode.OpenOrCreate))
-                using (var stream = entry.Open())
-                {
-                    await stream.CopyToAsync(destStream);
-                }
-            }
-        }
-
-        private ZipArchiveEntry GetMostRecentDirEntry(ZipArchive p)
-        {
-            var dirs = from e in p.Entries
-                where e.FullName.EndsWith("/")
-                select e;
-
-            var splitted = from e in dirs
+            var parsed = from r in split
                 select new
                 {
-                    e,
-                    Parts = e.FullName.Split('/'),
-                };
-
-            var parsed = from r in splitted
-                select new
-                {
-                    r.e,
+                    r.Directory,
                     Date = FirstParseableOrNull(r.Parts),
                 };
 
-            return parsed.OrderByDescending(x => x.Date).First().e;
+            return parsed.OrderByDescending(x => x.Date).First().Directory;
         }
 
-        private DateTime? FirstParseableOrNull(string[] parts)
+        private static DateTime? FirstParseableOrNull(IEnumerable<string> parts)
         {
             foreach (var part in parts)
             {

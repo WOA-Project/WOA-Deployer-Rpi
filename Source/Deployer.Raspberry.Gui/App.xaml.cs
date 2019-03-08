@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using Deployer.Gui.Common;
+using Deployer.Gui;
 using Deployer.Raspberry.Console;
 using Deployer.Raspberry.Gui.Views;
 
@@ -15,6 +15,7 @@ namespace Deployer.Raspberry.Gui
 
             MahApps.Metro.ThemeManager.IsAutomaticWindowsAppModeSettingSyncEnabled = true;
             MahApps.Metro.ThemeManager.SyncThemeWithWindowsAppModeSetting();
+            UpdateChecker.CheckForUpdates(AppProperties.GitHubBaseUrl);
 
             if (e.Args.Any())
             {
@@ -35,8 +36,6 @@ namespace Deployer.Raspberry.Gui
 
         private void LaunchConsole(string[] args)
         {
-            UpdateChecker.CheckForUpdates(AppProperties.GitHubBaseUrl);
-            
             ConsoleEmbedder.ExecuteInsideConsole(() => Task.Run(() => Program.Main(args)).Wait());
             Shutdown();
         }

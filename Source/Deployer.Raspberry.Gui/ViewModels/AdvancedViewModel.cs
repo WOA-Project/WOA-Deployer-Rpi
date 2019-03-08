@@ -1,7 +1,7 @@
 using System;
 using System.Reactive.Linq;
 using ByteSizeLib;
-using Deployer.Gui.Common;
+using Deployer.Gui;
 using ReactiveUI;
 
 namespace Deployer.Raspberry.Gui.ViewModels

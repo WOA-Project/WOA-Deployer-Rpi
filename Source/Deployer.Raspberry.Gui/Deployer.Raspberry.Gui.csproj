@@ -70,6 +70,7 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AppProperties.cs" />
+    <Compile Include="CompositionRoot.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -95,8 +96,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModels\RenderedLogEvent.cs" />
-    <Compile Include="ViewModels\WimPickViewModel.cs" />
     <Compile Include="Locator.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Page Include="Views\MainWindow.xaml">
@@ -324,9 +323,9 @@
       <Project>{20501832-13f5-4673-9d86-9e7e0c562027}</Project>
       <Name>Deployer.Raspberry</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DeployerPlatform\Deployer.Gui.Common\Deployer.Gui.Common.csproj">
-      <Project>{AD8EA86C-AF60-4CCF-9CAA-07BBF5E039EC}</Project>
-      <Name>Deployer.Gui.Common</Name>
+    <ProjectReference Include="..\DeployerPlatform\Deployer.Gui\Deployer.Gui.csproj">
+      <Project>{ad8ea86c-af60-4ccf-9caa-07bbf5e039ec}</Project>
+      <Name>Deployer.Gui</Name>
     </ProjectReference>
     <ProjectReference Include="..\DeployerPlatform\Deployer\Deployer.csproj">
       <Project>{20D40DC1-0237-47A0-B169-B420159E341C}</Project>

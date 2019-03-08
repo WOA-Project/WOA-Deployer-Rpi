@@ -5,9 +5,11 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Deployer.FileSystem;
-using Deployer.Gui.Common;
-using Deployer.Gui.Common.Services;
+using Deployer.Gui;
+using Deployer.Gui.Services;
+using Deployer.Gui.ViewModels;
 using ReactiveUI;
+using Serilog;
 
 namespace Deployer.Raspberry.Gui.ViewModels
 {
@@ -80,6 +82,9 @@ namespace Deployer.Raspberry.Gui.ViewModels
             optionsProvider.Options = windowsDeploymentOptions;
 
             await deployer.Deploy();
+
+            Log.Information("Deployment successful");
+
 
             await uiServices.Dialog.PickOptions(Resources.WindowsDeployedSuccessfully, new List<Option>()
             {

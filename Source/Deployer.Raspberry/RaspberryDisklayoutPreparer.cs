@@ -7,7 +7,7 @@ using Serilog;
 
 namespace Deployer.Raspberry
 {
-    public class RaspberryDisklayoutPreparer : IDisklayoutPreparer
+    public class RaspberryDisklayoutPreparer : IDiskLayoutPreparer
     {
         private readonly IImageFlasher imageFlasher;
         private readonly IObserver<double> progressObserver;

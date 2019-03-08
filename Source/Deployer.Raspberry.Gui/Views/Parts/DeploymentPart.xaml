@@ -3,11 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:common="clr-namespace:Deployer.Gui.Common;assembly=Deployer.Gui.Common"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:parts="clr-namespace:Deployer.Raspberry.Gui.Views.Parts"
              xmlns:Interactions="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:gui="clr-namespace:Deployer.Gui;assembly=Deployer.Gui"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              DataContext="{Binding Source={StaticResource Locator}, Path=DeploymentViewModel}" mah:DialogParticipation.Register="{Binding}">
@@ -43,19 +43,19 @@
                 <parts:WimOptionsPart  Margin="8" />
             </UniformGrid>
 
-            <common:IconButton Grid.Row="1" VerticalAlignment="Center" Command="{Binding FullInstallWrapper.Command}"
+            <gui:IconButton Grid.Row="1" VerticalAlignment="Center" Command="{Binding FullInstallWrapper.Command}"
                                IsBusy="{Binding FullInstallWrapper.IsExecuting}" Content="Deploy"
                                Height="50"                               
                                HorizontalAlignment="Center"
                                ToolTip="Use this option to deploy Windows to your SD Card">
-                <common:IconButton.Resources>
+                <gui:IconButton.Resources>
 
-                </common:IconButton.Resources>
-                <common:IconButton.Icon>
+                </gui:IconButton.Resources>
+                <gui:IconButton.Icon>
                     <iconPacks:PackIconFontAwesome
                         Kind="RocketSolid" Style="{StaticResource ButtonIconStyle}" />
-                </common:IconButton.Icon>
-            </common:IconButton>
+                </gui:IconButton.Icon>
+            </gui:IconButton>
 
         </Grid>
     </Grid>

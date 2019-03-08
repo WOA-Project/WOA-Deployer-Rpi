@@ -4,23 +4,35 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-             xmlns:viewModels="clr-namespace:Deployer.Raspberry.Gui.ViewModels"
+             xmlns:common="clr-namespace:Deployer.Gui.ViewModels;assembly=Deployer.Gui"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{d:DesignInstance viewModels:MainViewModel}">
+             d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{d:DesignInstance common:StatusViewModel}"
+             DataContext="{Binding Source={StaticResource Locator}, Path=StatusViewModel}">
     <StatusBar>
-        <StatusBarItem>
-            <TextBlock Text="{Binding Status.Message}" />
+        <StatusBar.ItemsPanel>
+            <ItemsPanelTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                </Grid>
+            </ItemsPanelTemplate>
+        </StatusBar.ItemsPanel>
+        <StatusBarItem ToolTip="{Binding Status.Message}">
+            <TextBlock Text="{Binding Status.Message}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
         </StatusBarItem>
-        <StatusBarItem HorizontalContentAlignment="Stretch"
+        <StatusBarItem Grid.Column="1" MinWidth="200" HorizontalContentAlignment="Stretch" 
                        Visibility="{Binding IsProgressVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid>
                 <mah:MetroProgressBar Minimum="0"
                                       Maximum="1"
+                                      IsIndeterminate="{Binding IsProgressIndeterminate}"
                                       Value="{Binding Progress, Mode=OneWay}" x:Name="ProgressBar" Height="20" />
 
                 <TextBlock Text="{Binding ElementName=ProgressBar, Path=Value, StringFormat={}{0:P0}}"
                            HorizontalAlignment="Center"
-                           VerticalAlignment="Center" />
+                           VerticalAlignment="Center" Visibility="{Binding IsProgressIndeterminate, Converter={StaticResource BooleanToVisibilityConverterInverted}}" />
             </Grid>
         </StatusBarItem>
     </StatusBar>

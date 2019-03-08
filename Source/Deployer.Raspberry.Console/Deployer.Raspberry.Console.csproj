@@ -53,6 +53,7 @@
     <Compile Include="..\Deployer.Raspberry.NetFx\Properties\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="CompositionRoot.cs" />
     <Compile Include="ConsoleDisplayUpdater.cs" />
     <Compile Include="ConsoleMarkdownDialog.cs" />
     <Compile Include="ConsoleMarkdownDisplayer.cs" />
