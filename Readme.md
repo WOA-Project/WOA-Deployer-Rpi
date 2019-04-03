@@ -71,6 +71,7 @@ This WOA Deployer is possible because the great community behind it. I would lik
 
 In addition to:
 
+- [Ian Johnson](https://github.com/ipjohnson) for his wonderful DI-IOC container: [Grace](https://github.com/ipjohnson/Grace)
 - [Eric Zimmerman](https://github.com/EricZimmerman) for [The Registry Project](https://github.com/EricZimmerman/Registry)
 - [Jan Karger](https://github.com/punker76) for his wonderful [MahApps.Metro](https://mahapps.com)
 - [ReactiveUI](https://reactiveui.net)
