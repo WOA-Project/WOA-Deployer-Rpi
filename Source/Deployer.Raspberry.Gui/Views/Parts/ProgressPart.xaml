@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="Deployer.Lumia.Gui.Views.Parts.ProgressPart"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Deployer.Lumia.Gui.Views.Parts"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="161" d:DesignWidth="202" DataContext="{Binding Source={StaticResource Locator}, Path=OngoingOperationViewModel}">
+    <UserControl.Resources>
+
+    </UserControl.Resources>
+    <StackPanel>
+        <mah:ProgressRing IsLarge="True" Margin="0 0 0 30" Height="80" Width="80" />
+        <TextBlock Text="{Binding CurrentActionTitle}" TextAlignment="Center" FontWeight="Bold" FontSize="26" VerticalAlignment="Bottom" TextWrapping="Wrap"/>
+        <StackPanel Margin="14">
+            <TextBlock  Text="{Binding CurrentActionDetail}" TextAlignment="Center" Margin="0 12 0 0" FontSize="18"
+                        FontWeight="Light" VerticalAlignment="Center" TextWrapping="Wrap"  />
+            <local:ProgressControl Margin="8" HorizontalAlignment="Center"
+                                   Visibility="{Binding IsProgressVisible, Converter={StaticResource HideOnFalse}}" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>

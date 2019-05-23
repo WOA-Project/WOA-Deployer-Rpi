@@ -1,12 +1,9 @@
 using System;
-using System.Reactive.Subjects;
-using Deployer.Gui;
-using Deployer.Gui.Services;
-using Deployer.Gui.ViewModels;
 using Deployer.Lumia.NetFx;
+using Deployer.NetFx;
 using Deployer.Raspberry.Gui.Specifics;
-using Deployer.Raspberry.Gui.ViewModels;
-using Deployer.Tasks;
+using Deployer.UI;
+using Deployer.UI.ViewModels;
 using Grace.DependencyInjection;
 using MahApps.Metro.Controls.Dialogs;
 using Serilog;
@@ -22,37 +19,36 @@ namespace Deployer.Raspberry.Gui
 
             IObservable<LogEvent> logEvents = null;
 
-            IViewService viewService = new ViewService();
-
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.RollingFile(@"Logs\Log-{Date}.txt")
                 .WriteTo.Observers(x => logEvents = x)
                 .MinimumLevel.Verbose()
                 .CreateLogger();
 
-            UpdateChecker.CheckForUpdates(AppProperties.GitHubBaseUrl);
-
-            var optionsProvider = new WindowsDeploymentOptionsProvider();
+            Log.Verbose($"Started {AppProperties.AppTitle}");
 
             container.Configure(x =>
             {
-                x.Configure(optionsProvider);
-                x.Export<DeviceProvider>().As<IDeviceProvider>().Lifestyle.Singleton();
-                x.Export<WpfMarkdownDisplayer>().As<IMarkdownDisplayer>();
-                x.ExportFactory(() => new BehaviorSubject<double>(double.NaN))
-                    .As<IObserver<double>>()
-                    .As<IObservable<double>>()
+                x.Configure();
+                x.ExportFactory(() => new OperationProgress()).As<IOperationProgress>().Lifestyle.Singleton();
+                x.ExportFactory(() => logEvents).As<IObservable<LogEvent>>().Lifestyle.Singleton();
+                x.Export<WimPickViewModel>().As<WimPickViewModel>().Lifestyle.Singleton();
+                x.Export<UIServices>().Lifestyle.Singleton();
+                x.Export<Dialog>().ByInterfaces().Lifestyle.Singleton();
+                x.Export<ContextDialog>().ByInterfaces().Lifestyle.Singleton();
+                x.Export<OpenFilePicker>().As<IOpenFilePicker>().Lifestyle.Singleton();
+                x.Export<SaveFilePicker>().As<ISaveFilePicker>().Lifestyle.Singleton();
+                x.Export<RaspberryPiSettingsService>().ByInterfaces().Lifestyle.Singleton();
+                x.Export<SaveFilePicker>().As<ISaveFilePicker>().Lifestyle.Singleton();
+                x.Export<ViewService>().As<IViewService>().Lifestyle.Singleton();
+                x.ExportFactory(() => DialogCoordinator.Instance).As<IDialogCoordinator>().Lifestyle.Singleton();
+                x.ExportAssemblies(Assemblies.AppDomainAssemblies)
+                    .Where(y => typeof(ISection).IsAssignableFrom(y))
+                    .ByInterface<ISection>()
+                    .ByInterface<IBusy>()
+                    .ByType()
+                    .ExportAttributedTypes()
                     .Lifestyle.Singleton();
-                x.ExportFactory(() => logEvents).As<IObservable<LogEvent>>();
-                x.Export<WimPickViewModel>().ByInterfaces().As<WimPickViewModel>().Lifestyle.Singleton();
-                x.Export<AdvancedViewModel>().ByInterfaces().As<AdvancedViewModel>().Lifestyle.Singleton();
-                x.Export<DeploymentViewModel>().ByInterfaces().As<DeploymentViewModel>().Lifestyle.Singleton();
-                x.Export<UIServices>();
-                x.ExportFactory(() => viewService).As<IViewService>();
-                x.Export<Dialog>().ByInterfaces();
-                x.Export<FilePicker>().As<IFilePicker>();
-                x.Export<SettingsService>().As<ISettingsService>();
-                x.ExportFactory(() => DialogCoordinator.Instance).As<IDialogCoordinator>();
             });
 
             return container;

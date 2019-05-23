@@ -32,6 +32,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Grace, Version=7.0.0.0, Culture=neutral, PublicKeyToken=b7d24c6367970497, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\JMN\.nuget\packages\grace\7.0.0\lib\net45\Grace.dll</HintPath>
+    </Reference>
+    <Reference Include="Octokit, Version=0.32.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\JMN\.nuget\packages\octokit\0.32.0\lib\net45\Octokit.dll</HintPath>
+    </Reference>
+    <Reference Include="Superpower">
+      <HintPath>C:\Users\JMN\.nuget\packages\superpower\2.2.0\lib\net45\Superpower.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -46,7 +57,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\SharedAssemblyInfo.cs" />
-    <Compile Include="TestImageService.cs" />
     <Compile Include="ContainerConfigurator.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -67,8 +77,17 @@
     <PackageReference Include="DiscUtils">
       <Version>0.14.0-alpha234</Version>
     </PackageReference>
+    <PackageReference Include="Grace">
+      <Version>7.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Octokit">
+      <Version>0.32.0</Version>
+    </PackageReference>
     <PackageReference Include="Serilog">
       <Version>2.8.0</Version>
+    </PackageReference>
+    <PackageReference Include="Superpower">
+      <Version>2.2.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />

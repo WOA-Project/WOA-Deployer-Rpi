@@ -3,37 +3,26 @@
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:parts="clr-namespace:Deployer.Lumia.Gui.Views.Parts"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-                 xmlns:converters="http://metro.mahapps.com/winfx/xaml/shared"
-                 xmlns:parts="clr-namespace:Deployer.Raspberry.Gui.Views.Parts"
                  xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                 xmlns:advanced="clr-namespace:Deployer.Lumia.Gui.Views.Parts.Advanced"
+                 xmlns:parts1="clr-namespace:Deployer.Raspberry.Gui.Views.Parts"
+                 xmlns:viewModels1="clr-namespace:Deployer.Raspberry.Gui.ViewModels"
                  mc:Ignorable="d"
                  DataContext="{Binding Source={StaticResource Locator}, Path=MainViewModel}"
                  mah:DialogParticipation.Register="{Binding}"
-                 Title="{Binding Title}" Width="720" Height="640"
+                 Title="{Binding Title}" 
                  Icon="/Assets/appicon.png"
-                 WindowStartupLocation="CenterScreen">
-    <mah:MetroWindow.Resources>
-        <Style x:Key="DonateButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="{DynamicResource AccentColorBrush}" />
-            <Setter Property="TextElement.Foreground">
-                <Setter.Value>
-
-                        <MultiBinding Converter="{x:Static converters:BackgroundToForegroundConverter.Instance}">
-                            <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
-                            <Binding Mode="OneWay"
-                                     Path="Background"
-                                     RelativeSource="{RelativeSource TemplatedParent}" />
-                            <Binding Mode="OneWay"
-                                     Path="(mah:GroupBoxHelper.HeaderForeground)"
-                                     RelativeSource="{RelativeSource TemplatedParent}" />
-                        </MultiBinding>
-
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </mah:MetroWindow.Resources>
-
+                 WindowStartupLocation="CenterScreen" Closing="MainWindow_OnClosing">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModels1:DeploymentViewModel}">
+            <parts1:DeploymentPart />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels1:AdvancedViewModel}">
+            <advanced:AdvancedPart />
+        </DataTemplate>
+    </Window.Resources>    
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands>
             <Button Command="{Binding HelpCommand}" ToolTip="Do you need help?">
@@ -42,9 +31,18 @@
                     <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Help" />
                 </StackPanel>
             </Button>
+            <Button Command="{Binding DonateCommand}" ToolTip="Please, support this tool. Thanks in advance :)"
+                    Padding="10,5,10,5"
+                    Opacity="1">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Height="16" VerticalAlignment="Center" Source="/Assets/heart.png" RenderOptions.BitmapScalingMode="HighQuality" />
+                        <TextBlock Margin="8 0 0 0" VerticalAlignment="Center" Text="Donate" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
-
     <Grid>
 
         <Grid.RowDefinitions>
@@ -54,43 +52,25 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TabControl Margin="20,0,20,20" Grid.Row="1"
-                    IsEnabled="{Binding IsBusy, Converter={StaticResource BoolNegationConverter}}">
-            <TabItem Header="Deployment">
-                <TabItem.HeaderTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding}" ToolTip="Windows deployment tasks" />
-                    </DataTemplate>
-                </TabItem.HeaderTemplate>
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <parts:DeploymentPart />
-                </ScrollViewer>
-            </TabItem>          
-            <TabItem Header="Advanced">
-                <TabItem.HeaderTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding}" ToolTip="Advanced tasks" />
-                    </DataTemplate>
-                </TabItem.HeaderTemplate>
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <parts:AdvancedPart />
-                </ScrollViewer>
-            </TabItem>
+        <TabControl Margin="20" Grid.Row="1" Focusable="False"
+                    ItemsSource="{Binding Sections}"
+                    SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                    IsHitTestVisible="{Binding IsBusy, Converter={StaticResource BoolNegationConverter}}">
+            <TabControl.ItemContainerStyle>
+                <Style TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
+                    <Setter Property="Header" Value="{Binding Converter={StaticResource MetadataConverter}, ConverterParameter='Name'}" />
+                    <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                    <Setter Property="Content" Value="{Binding Value}" />
+                </Style>
+            </TabControl.ItemContainerStyle>            
         </TabControl>
 
-        <Button Command="{Binding DonateCommand}" ToolTip="Please, support this tool. Thanks in advance :)" Grid.Row="1" Margin="0,0,20,20" Padding="10,5,10,5" VerticalAlignment="Bottom" HorizontalAlignment="Right"
-                Style="{StaticResource DonateButtonStyle}">
-            <Button.Content>
-                <StackPanel Orientation="Horizontal">
-                    <iconPacks:PackIconMaterial Kind="CardsHeart" />
-                    <TextBlock Margin="8 0 0 0" VerticalAlignment="Center" Text="Donate" />
-                </StackPanel>
-            </Button.Content>
-        </Button>
-
+        <Grid Grid.Row="1" Visibility="{Binding IsBigProgressVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <parts:ProgressPart VerticalAlignment="Center" Margin="0 80 0 0" />
+        </Grid>
+        
         <Expander Grid.Row="2" Header="Log" IsExpanded="False" MaxHeight="400">
-            <parts:LogPart />
+            <parts1:LogPart />
         </Expander>
-        <parts:StatusPart Grid.Row="3" />
     </Grid>
 </mah:MetroWindow>

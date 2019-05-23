@@ -1,49 +1,57 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Deployer.FileSystem;
-using Serilog;
 
 namespace Deployer.Raspberry
 {
     public class RaspberryPi : Device
     {
-        private readonly int diskNumber;
-        private readonly Disk disk;
+        private readonly IDisk disk;
 
-        public RaspberryPi(ILowLevelApi lowLevelApi, int diskNumber) : base(lowLevelApi)
-        {
-            this.diskNumber = diskNumber;
-        }
-
-        public RaspberryPi(ILowLevelApi lowLevelApi, Disk disk) : base(lowLevelApi)
+        public RaspberryPi(IDisk disk)
         {
             this.disk = disk;
         }
 
-        public override async Task<Disk> GetDeviceDisk()
+        public override Task<IDisk> GetDeviceDisk()
         {
-            if (disk == null)
+            if (disk.IsOffline)
             {
-                var disks = await LowLevelApi.GetDisks();
-                return disks.First(x => x.Number == diskNumber);
+                throw new ApplicationException(
+                    "The phone disk is offline. Please, set it online with Disk Management or DISKPART.");
             }
 
-            return disk;
-        }      
-
-        public override async Task<Volume> GetBootVolume()
-        {
-            return await GetVolume("EFIESP");
+            return Task.FromResult(disk);
         }
 
-        public override async Task RemoveExistingWindowsPartitions()
+        public override async Task<IPartition> GetWindowsPartition()
         {
-            Log.Verbose("Cleanup of possible previous Windows 10 ARM64 installation...");
+            var winPart = await disk.GetPartitionByVolumeLabel(PartitionLabels.Windows);
+            if (winPart.Root == null)
+            {
+                await winPart.EnsureWritable();
+            }
 
-            await RemovePartition("Reserved", await (await GetDeviceDisk()).GetReservedPartition());
-            await RemovePartition("WoA ESP", await this.GetBootPartition());
-            var winVol = await GetWindowsVolume();
-            await RemovePartition("WoA", winVol?.Partition);
+            return winPart;
+        }
+
+        protected override Task<bool> IsWoAPresent()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override async Task<IPartition> GetSystemPartition()
+        {
+            var partitions = await disk.GetPartitions();
+
+            var systemPartition = partitions.First();
+            if (systemPartition.Root == null)
+            {
+                await systemPartition.AssignDriveLetter();
+            }
+
+            return systemPartition;
         }
     }
 }

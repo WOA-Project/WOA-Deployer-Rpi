@@ -9,44 +9,53 @@
              DataContext="{Binding Source={StaticResource Locator}, Path=WimPickViewModel}"
              mah:DialogParticipation.Register="{Binding}">
     <GroupBox Header="Windows Image (.WIM)" Padding="15">
-        <StackPanel VerticalAlignment="Center">
-            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="4">
-                Please, specify the Windows Image file (.wim) you wish to deploy.
+        <DockPanel>
+            <StackPanel VerticalAlignment="Center" DockPanel.Dock="Bottom">
+                <HeaderedContentControl Header="WIM file">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox IsReadOnly="True" VerticalAlignment="Center"
+                                 Text="{Binding WimMetadata.Path, Mode=OneWay}" Padding="4" />
+                        <Button Command="{Binding PickWimFileCommand}" Margin="8" Padding="4" Content="Browse..."
+                                Grid.Column="1" />
+                    </Grid>
+                </HeaderedContentControl>
+
+                <HeaderedContentControl Header="Image">
+                    <Grid IsEnabled="{Binding HasWim}"
+                          ToolTip="This is the image (inside the .wim file) you want to deploy (WIM images can contain more than one edition like 'Pro' or 'Home'). If you don't know what this means, leave it with the default value.">
+                        <ComboBox ItemsSource="{Binding WimMetadata.Images}"
+                                  SelectedItem="{Binding WimMetadata.SelectedDiskImage, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock FontWeight="Bold" Text="{Binding Index}" />
+                                        <TextBlock Margin="4,0,0,0" Grid.Column="1">
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0} build {1}">
+                                                    <Binding Path="DisplayName" />
+                                                    <Binding Path="Build" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </Grid>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </Grid>
+                </HeaderedContentControl></StackPanel>
+            <TextBlock FontSize="17" TextWrapping="Wrap" VerticalAlignment="Center" Margin="4">
+                In order to deploy Windows 10 ARM to your Raspberry Pi, you need to specify a Windows Image file (.wim).
+                <LineBreak/>
+                If you don't know how to get one, please, check this <Hyperlink Command="{Binding OpenGetWoaCommand}" CommandParameter="https://github.com/WOA-Project/WOA-Deployer-RPi/blob/master/Docs/GettingWoA.md">link</Hyperlink>.
             </TextBlock>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <TextBox IsReadOnly="True" VerticalAlignment="Center" Text="{Binding WimMetadata.Path, Mode=OneWay}" Padding="4" />
-                <Button Command="{Binding PickWimFileCommand}" Margin="8" Padding="4" Content="Browse..." Grid.Column="1" />
-            </Grid>
-
-            <Grid IsEnabled="{Binding HasWim}"
-                  ToolTip="This is the image (inside the .wim file) you want to deploy (WIM images can contain more than one edition like 'Pro' or 'Home'). If you don't know what this means, leave it with the default value.">
-                <ComboBox ItemsSource="{Binding WimMetadata.Images}" SelectedItem="{Binding WimMetadata.SelectedDiskImage, Mode=TwoWay}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock FontWeight="Bold" Text="{Binding Index}"/>
-                                <TextBlock Margin="4,0,0,0" Grid.Column="1">
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}{0} build {1}">
-                                            <Binding Path="DisplayName" />
-                                            <Binding Path="Build" />
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-                            </Grid>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            </Grid>
-
-        </StackPanel>
+        </DockPanel>
     </GroupBox>
 </UserControl>

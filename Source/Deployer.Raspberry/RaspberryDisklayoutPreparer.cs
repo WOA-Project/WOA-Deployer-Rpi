@@ -1,7 +1,6 @@
-﻿using System;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Deployer.FileSystem;
-using Deployer.Services;
 using Deployer.Tasks;
 using Serilog;
 
@@ -9,36 +8,19 @@ namespace Deployer.Raspberry
 {
     public class RaspberryDisklayoutPreparer : IDiskLayoutPreparer
     {
-        private readonly IImageFlasher imageFlasher;
-        private readonly IObserver<double> progressObserver;
-
-        private const string WindowsPartitonLabel = "WindowsARM";
-
-        public RaspberryDisklayoutPreparer(IImageFlasher imageFlasher, IObserver<double> progressObserver)
+        public async Task Prepare(IDisk disk)
         {
-            this.imageFlasher = imageFlasher;
-            this.progressObserver = progressObserver;
-        }
+            Log.Verbose("Preparing Micro SD...");
 
-        public async Task Prepare(Disk disk)
-        {
-            Log.Information("Flashing GPT image...");
-            await imageFlasher.Flash(disk, @"Core\gpt.zip", progressObserver);
-            Log.Information("GPT image flashed");
-            
-            await CreateWindowsPartition(disk);
-        }
+            var windowsPartition = await disk.CreatePartition(PartitionType.Basic, "Windows");
+            var vol = await windowsPartition.GetVolume();
+            await vol.Format(FileSystemFormat.Ntfs, PartitionLabels.Windows);
 
-        private async Task CreateWindowsPartition(Disk disk)
-        {
-            Log.Verbose("Creating Windows partition...");
+            var volumes = await disk.GetVolumes();
+            var system = volumes.First(x => x.Label == PartitionLabels.System);
+            await system.Partition.SetGptType(PartitionType.Esp);
 
-            var windowsPartition = await disk.CreatePartition(ulong.MaxValue);
-            var winVolume = await windowsPartition.GetVolume();
-            await winVolume.Mount();
-            await winVolume.Format(FileSystemFormat.Ntfs, WindowsPartitonLabel);
-
-            Log.Verbose("Windows Partition created successfully");            
+            Log.Verbose("Micro SD ready");
         }
     }
 }

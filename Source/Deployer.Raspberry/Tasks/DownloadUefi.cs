@@ -1,12 +1,12 @@
 ﻿using Deployer.Execution;
 using Deployer.Tasks;
 using Serilog;
-using SharpCompress.Archives.Zip;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using ZipArchiveEntry = SharpCompress.Archives.Zip.ZipArchiveEntry;
 
 namespace Deployer.Raspberry.Tasks
 {
@@ -16,14 +16,16 @@ namespace Deployer.Raspberry.Tasks
         private readonly string destination;
         private readonly IFileSystemOperations fileSystemOperations;
         private readonly IZipExtractor extractor;
-        private readonly IObserver<double> progressObserver;
+        private readonly IOperationProgress progress;
+        private readonly IDownloader downloader;
 
-        public DownloadUefi(string destination, IFileSystemOperations fileSystemOperations, IZipExtractor extractor, IObserver<double> progressObserver)
+        public DownloadUefi(string destination, IFileSystemOperations fileSystemOperations, IZipExtractor extractor, IOperationProgress progress, IDownloader downloader)
         {
             this.destination = destination;
             this.fileSystemOperations = fileSystemOperations;
             this.extractor = extractor;
-            this.progressObserver = progressObserver;
+            this.progress = progress;
+            this.downloader = downloader;
         }
 
         public async Task Execute()
@@ -34,9 +36,10 @@ namespace Deployer.Raspberry.Tasks
                 return;
             }
 
-            using (var stream = await GitHubMixin.GetBranchZippedStream("https://github.com/andreiw/RaspberryPiPkg", progressObserver: progressObserver))
+            using (var stream = await GitHubMixin.GetBranchZippedStream(downloader,
+                "https://github.com/andreiw/RaspberryPiPkg", progressObserver: progress))
             {
-                await extractor.ExtractRelativeFolder(stream, GetMostRecentDirEntry, destination, progressObserver);
+                await extractor.ExtractRelativeFolder(stream, GetMostRecentDirEntry, destination, progress);
             }
         }
 

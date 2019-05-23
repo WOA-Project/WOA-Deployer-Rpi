@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Deployer.Raspberry.Gui.Views.Parts
+namespace Deployer.Lumia.Gui.Views.Parts.Advanced
 {
     /// <summary>
     /// Interaction logic for AdvancedPart.xaml

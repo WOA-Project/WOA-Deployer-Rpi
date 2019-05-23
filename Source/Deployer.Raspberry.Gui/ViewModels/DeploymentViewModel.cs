@@ -5,56 +5,67 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Deployer.FileSystem;
-using Deployer.Gui;
-using Deployer.Gui.Services;
-using Deployer.Gui.ViewModels;
+using Deployer.NetFx;
+using Deployer.Tasks;
+using Deployer.UI;
+using Deployer.UI.ViewModels;
+using Grace.DependencyInjection.Attributes;
 using ReactiveUI;
 using Serilog;
 
 namespace Deployer.Raspberry.Gui.ViewModels
 {
-    public class DeploymentViewModel : ReactiveObject, IBusy
+    [Metadata("Name", "Deployment")]
+    [Metadata("Order", 0)]
+    public class DeploymentViewModel : ReactiveObject, ISection
     {
-        private readonly IWindowsOptionsProvider optionsProvider;
+        private readonly IDeploymentContext context;
         private readonly IWoaDeployer deployer;
         private readonly UIServices uiServices;
         private readonly AdvancedViewModel advancedViewModel;
         private readonly WimPickViewModel wimPickViewModel;
-        private readonly ObservableAsPropertyHelper<bool> isBusy;
         private DiskViewModel selectedDisk;
+        private readonly IFileSystemOperations fileSystemOperations;
+        private readonly IRaspberryPiSettingsService raspberryPiSettingsService;
+        private readonly ObservableAsPropertyHelper<bool> isBusyHelper;
         private readonly ObservableAsPropertyHelper<IEnumerable<DiskViewModel>> disks;
 
-        public DeploymentViewModel(IDeviceProvider deviceProvider,
-            IWindowsOptionsProvider optionsProvider,
+
+        public DeploymentViewModel(
+            IDeploymentContext context,
+            IOperationContext operationContext,
             IWoaDeployer deployer, UIServices uiServices, AdvancedViewModel advancedViewModel,
-            WimPickViewModel wimPickViewModel, ILowLevelApi lowLevelApi)
+            WimPickViewModel wimPickViewModel, IFileSystemOperations fileSystemOperations, IRaspberryPiSettingsService raspberryPiSettingsService,
+            IDiskRoot diskRoot)
         {
-            this.optionsProvider = optionsProvider;
+            this.context = context;
             this.deployer = deployer;
             this.uiServices = uiServices;
             this.advancedViewModel = advancedViewModel;
             this.wimPickViewModel = wimPickViewModel;
+            this.fileSystemOperations = fileSystemOperations;
+            this.raspberryPiSettingsService = raspberryPiSettingsService;
 
             var isSelectedWim = wimPickViewModel.WhenAnyObservable(x => x.WimMetadata.SelectedImageObs)
                 .Select(metadata => metadata != null);
 
             FullInstallWrapper = new CommandWrapper<Unit, Unit>(this,
-                ReactiveCommand.CreateFromTask(Deploy, isSelectedWim), uiServices.Dialog);
+                ReactiveCommand.CreateFromTask(Deploy, isSelectedWim), uiServices.ContextDialog, operationContext);
             IsBusyObservable = FullInstallWrapper.Command.IsExecuting;
-            isBusy = IsBusyObservable.ToProperty(this, model => model.IsBusy);
+            isBusyHelper = IsBusyObservable.ToProperty(this, model => model.IsBusy);
 
-            RefreshDisksCommandWrapper = new CommandWrapper<Unit, ICollection<Disk>>(this,
-                ReactiveCommand.CreateFromTask(lowLevelApi.GetDisks), uiServices.Dialog);
+            RefreshDisksCommandWrapper = new CommandWrapper<Unit, IList<IDisk>>(this,
+                ReactiveCommand.CreateFromTask(diskRoot.GetDisks), uiServices.ContextDialog, operationContext);
             disks = RefreshDisksCommandWrapper.Command
                 .Select(x => x.Select(disk => new DiskViewModel(disk)))
                 .ToProperty(this, x => x.Disks);
 
-            this.WhenAnyValue(x => x.SelectedDisk).Where(x => x != null).Subscribe(x => deviceProvider.Device = new RaspberryPi(lowLevelApi, x.Disk));
+            this.WhenAnyValue(x => x.SelectedDisk).Where(x => x != null).Subscribe(x => context.Device = new RaspberryPi(x.IDisk));
         }
 
-        public IEnumerable<DiskViewModel> Disks => disks.Value;
+        public bool IsBusy => isBusyHelper.Value;
 
-        public CommandWrapper<Unit, ICollection<Disk>> RefreshDisksCommandWrapper { get; set; }
+        public CommandWrapper<Unit, IList<IDisk>> RefreshDisksCommandWrapper { get; set; }
 
         public DiskViewModel SelectedDisk
         {
@@ -62,29 +73,26 @@ namespace Deployer.Raspberry.Gui.ViewModels
             set => this.RaiseAndSetIfChanged(ref selectedDisk, value);
         }
 
-        public bool IsBusy => isBusy.Value;
+
+        public IEnumerable<DiskViewModel> Disks => disks.Value;
 
         private async Task Deploy()
         {
-            if (await uiServices.Dialog.ShowConfirmation(this, Resources.DeploymentConfirmationTitle, string.Format(Resources.DeploymentConfirmationMessage, SelectedDisk)) == DialogResult.No)
-            {
-                return;               
-            }
+            Log.Information("# Starting deployment...");
 
             var windowsDeploymentOptions = new WindowsDeploymentOptions
             {
                 ImagePath = wimPickViewModel.WimMetadata.Path,
                 ImageIndex = wimPickViewModel.WimMetadata.SelectedDiskImage.Index,
-                SizeReservedForWindows = advancedViewModel.SizeReservedForWindows,
                 UseCompact = advancedViewModel.UseCompactDeployment,
             };
 
-            optionsProvider.Options = windowsDeploymentOptions;
+            context.DeploymentOptions = windowsDeploymentOptions;
 
+            await CleanDownloadedIfNeeded();
             await deployer.Deploy();
 
             Log.Information("Deployment successful");
-
 
             await uiServices.Dialog.PickOptions(Resources.WindowsDeployedSuccessfully, new List<Option>()
             {
@@ -92,7 +100,21 @@ namespace Deployer.Raspberry.Gui.ViewModels
             });
         }
 
+        private async Task CleanDownloadedIfNeeded()
+        {
+            if (!raspberryPiSettingsService.CleanDownloadedBeforeDeployment)
+            {
+                return;
+            }
+
+            if (fileSystemOperations.DirectoryExists(AppPaths.ArtifactDownload))
+            {
+                Log.Information("Deleting previously downloaded deployment files");
+                await fileSystemOperations.DeleteDirectory(AppPaths.ArtifactDownload);
+            }
+        }
+
         public CommandWrapper<Unit, Unit> FullInstallWrapper { get; set; }
         public IObservable<bool> IsBusyObservable { get; }
-    }    
+    }
 }

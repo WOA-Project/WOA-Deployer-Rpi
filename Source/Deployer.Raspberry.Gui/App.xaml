@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:valueConverters="clr-namespace:ValueConverters;assembly=ValueConverters"
-             xmlns:gui="clr-namespace:Deployer.Raspberry.Gui">
+             xmlns:gui="clr-namespace:Deployer.Raspberry.Gui"
+             xmlns:transformation="clr-namespace:Deployer.Lumia.Gui.Views.Transformation;assembly=Deployer.UI">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -26,10 +27,13 @@
                 <Setter Property="HorizontalAlignment" Value="Center" />                
             </Style>
 
-            <valueConverters:BoolToVisibilityConverter x:Key="BooleanToVisibilityConverterInverted" IsInverted="True" />
+            <valueConverters:BoolToVisibilityConverter x:Key="CollapseOnTrue" IsInverted="True" />
+            <valueConverters:BoolToVisibilityConverter x:Key="CollapseOnFalse"  />
+            <valueConverters:BoolToVisibilityConverter x:Key="HideOnFalse" FalseValue="Hidden" TrueValue="Visible" />
+            <valueConverters:BoolToVisibilityConverter x:Key="HideOnTrue" TrueValue="Hidden" FalseValue="Visible" />
 
             <gui:Locator x:Key="Locator" />
-
+            <transformation:MetadataConverter x:Key="MetadataConverter" />
         </ResourceDictionary>
 
     </Application.Resources>

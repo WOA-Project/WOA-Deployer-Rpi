@@ -1,13 +1,14 @@
 using ByteSizeLib;
 using Deployer.FileSystem;
+using Deployer.NetFx;
 
 namespace Deployer.Raspberry.Gui.ViewModels
 {
     public class DiskViewModel
     {
-        private readonly Disk disk;
+        private readonly IDisk disk;
 
-        public DiskViewModel(Disk disk)
+        public DiskViewModel(IDisk disk)
         {
             this.disk = disk;
         }
@@ -16,11 +17,11 @@ namespace Deployer.Raspberry.Gui.ViewModels
         public string FriendlyName => disk.FriendlyName;
         public ByteSize Size => disk.Size;
         public bool IsUsualTarget => Size > ByteSize.FromGigaBytes(1) && Size < ByteSize.FromGigaBytes(200);
-        public Disk Disk => disk;
+        public IDisk IDisk => disk;
 
         public override string ToString()
         {
-            return $"Disk number {disk.Number}, {disk.FriendlyName}, Capacity: {disk.Size}";
+            return $"IDisk number {disk.Number}, {disk.FriendlyName}, Capacity: {disk.Size}";
         }
     }
 }

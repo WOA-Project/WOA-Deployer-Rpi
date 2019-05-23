@@ -1,53 +1,100 @@
 using System;
+using System.Diagnostics;
+using System.IO;
+using System.Reactive;
 using System.Reactive.Linq;
-using ByteSizeLib;
-using Deployer.Gui;
+using System.Threading.Tasks;
+using Deployer.Tasks;
+using Deployer.UI;
+using Grace.DependencyInjection;
+using Grace.DependencyInjection.Attributes;
 using ReactiveUI;
 
 namespace Deployer.Raspberry.Gui.ViewModels
 {
-    public class AdvancedViewModel : ReactiveObject, IBusy
+    [Metadata("Name", "Advanced")]
+    [Metadata("Order", 2)]
+    public class AdvancedViewModel : ReactiveObject, ISection
     {
-        private readonly ISettingsService settingsService;
+        private const string LogsZipName = "PhoneLogs.zip";
+        private readonly IDeploymentContext context;
+        private readonly ILogCollector logCollector;
+        private readonly IRaspberryPiSettingsService raspberryPiSettingsService;
+        private readonly UIServices uiServices;
 
-        private readonly ObservableAsPropertyHelper<ByteSize> sizeReservedForWindows;
-
-        public AdvancedViewModel(ISettingsService settingsService)
+        public AdvancedViewModel(IRaspberryPiSettingsService raspberryPiSettingsService, IFileSystemOperations fileSystemOperations,
+            UIServices uiServices, IDeploymentContext context, IOperationContext operationContext,
+            ILogCollector logCollector)
         {
-            this.settingsService = settingsService;
+            this.raspberryPiSettingsService = raspberryPiSettingsService;
+            this.uiServices = uiServices;
+            this.context = context;
+            this.logCollector = logCollector;
 
+            DeleteDownloadedWrapper = new CommandWrapper<Unit, Unit>(this,
+                ReactiveCommand.CreateFromTask(() => DeleteDownloaded(fileSystemOperations)), uiServices.ContextDialog, operationContext);
+            
+            CollectLogsCommmandWrapper = new CommandWrapper<Unit, Unit>(this, ReactiveCommand.CreateFromTask(CollectLogs), uiServices.ContextDialog, operationContext);
 
-            sizeReservedForWindows =
-                this.WhenAnyValue(x => x.GbsReservedForWindows, ByteSize.FromGigaBytes)
-                    .ToProperty(this, x => x.SizeReservedForWindows);
-
-            IsBusyObservable = Observable.Return(false);
+            IsBusyObservable = Observable.Merge(DeleteDownloadedWrapper.Command.IsExecuting,
+                CollectLogsCommmandWrapper.Command.IsExecuting);
         }
 
-        public ByteSize SizeReservedForWindows => sizeReservedForWindows.Value;
-
-        public double GbsReservedForWindows
+        private async Task CollectLogs()
         {
-            get => settingsService.SizeReservedForWindows;
-            set
+            await logCollector.Collect(context.Device, LogsZipName);
+            var fileInfo = new FileInfo(LogsZipName);
+            ExploreFile(fileInfo.FullName);
+        }
+
+        private void ExploreFile(string filePath)
+        {
+            if (!File.Exists(filePath))
             {
-                settingsService.SizeReservedForWindows = value;
-                settingsService.Save();
-                this.RaisePropertyChanged(nameof(GbsReservedForWindows));
+                return;
             }
+
+            Process.Start("explorer.exe", $"/select,\"{filePath}\"");
         }
+
+        public CommandWrapper<Unit, Unit> DeleteDownloadedWrapper { get; }
 
         public bool UseCompactDeployment
         {
-            get => settingsService.UseCompactDeployment;
+            get => raspberryPiSettingsService.UseCompactDeployment;
             set
             {
-                settingsService.UseCompactDeployment = value;
-                settingsService.Save();
+                raspberryPiSettingsService.UseCompactDeployment = value;
                 this.RaisePropertyChanged(nameof(UseCompactDeployment));
             }
         }
 
+        public bool CleanDownloadedBeforeDeployment
+        {
+            get => raspberryPiSettingsService.CleanDownloadedBeforeDeployment;
+            set
+            {
+                raspberryPiSettingsService.CleanDownloadedBeforeDeployment = value;
+                this.RaisePropertyChanged(nameof(CleanDownloadedBeforeDeployment));
+            }
+        }
+
+        public CommandWrapper<Unit, Unit> CollectLogsCommmandWrapper { get; }
+
         public IObservable<bool> IsBusyObservable { get; }
+
+        private async Task DeleteDownloaded(IFileSystemOperations fileSystemOperations)
+        {
+            if (fileSystemOperations.DirectoryExists(AppPaths.ArtifactDownload))
+            {
+                await fileSystemOperations.DeleteDirectory(AppPaths.ArtifactDownload);
+                await uiServices.ContextDialog.ShowAlert(this, Resources.Done, UI.Properties.Resources.DownloadedFolderDeleted);
+            }
+            else
+            {
+                await uiServices.ContextDialog.ShowAlert(this, UI.Properties.Resources.DownloadedFolderNotFoundTitle,
+                    UI.Properties.Resources.DownloadedFolderNotFound);
+            }
+        }
     }
 }

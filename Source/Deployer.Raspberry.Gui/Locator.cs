@@ -1,5 +1,6 @@
-using Deployer.Gui.ViewModels;
+using Deployer.Lumia.Gui.ViewModels;
 using Deployer.Raspberry.Gui.ViewModels;
+using Deployer.UI.ViewModels;
 using Grace.DependencyInjection;
 
 namespace Deployer.Raspberry.Gui
@@ -14,9 +15,15 @@ namespace Deployer.Raspberry.Gui
         }
 
         public MainViewModel MainViewModel => container.Locate<MainViewModel>();
+
         public WimPickViewModel WimPickViewModel => container.Locate<WimPickViewModel>();
+
         public DeploymentViewModel DeploymentViewModel => container.Locate<DeploymentViewModel>();
+
         public AdvancedViewModel AdvancedViewModel => container.Locate<AdvancedViewModel>();
-        public StatusViewModel StatusViewModel => container.Locate<StatusViewModel>();
+
+        public LogViewModel LogViewModel => container.Locate<LogViewModel>();
+
+        public OngoingOperationViewModel OngoingOperationViewModel => container.Locate<OngoingOperationViewModel>();
     }
 }

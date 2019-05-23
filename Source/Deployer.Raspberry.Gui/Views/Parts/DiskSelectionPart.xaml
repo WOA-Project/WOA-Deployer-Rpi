@@ -31,10 +31,10 @@
                 <ComboBox Grid.RowSpan="2" ItemsSource="{Binding Source={StaticResource Disks}}"
                                       HorizontalContentAlignment="Stretch"
                                       SelectedItem="{Binding SelectedDisk, Mode=TwoWay}"
-                                      IsEnabled="{Binding RefreshDisksCommandWrapper.IsExecuting, Converter={StaticResource BooleanToVisibilityConverterInverted}}">
+                                      IsEnabled="{Binding RefreshDisksCommandWrapper.IsExecuting, Converter={StaticResource CollapseOnTrue}}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <Grid x:Name="Container" Height="30" Visibility="{Binding ElementName=UserControl, Path=DataContext.RefreshDisksCommandWrapper.IsExecuting, Converter={StaticResource BooleanToVisibilityConverterInverted}}" >
+                            <Grid x:Name="Container" Height="30" Visibility="{Binding ElementName=UserControl, Path=DataContext.RefreshDisksCommandWrapper.IsExecuting, Converter={StaticResource CollapseOnTrue}}" >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition/>

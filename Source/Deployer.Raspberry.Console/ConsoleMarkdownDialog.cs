@@ -3,15 +3,20 @@ using System.Threading.Tasks;
 
 namespace Deployer.Raspberry.Console
 {
-    internal class ConsoleMarkdownDialog : IMarkdownDialog
+    internal class ConsoleMarkdownDialog : IDialog
     {
-        public Task<Option> PickOptions(string markdown, IEnumerable<Option> options)
+        public Task<Option> PickOptions(string markdown, IEnumerable<Option> options, string assetBasePath = "")
         {
             System.Console.WriteLine(
-@"By continuing you are accepting the following license below.
+                @"By continuing you are accepting the following license below.
 If you decline it, press Control+C anytime during the deployment process.
 " + markdown);
-            return Task.FromResult(new Option("Accept", DialogValue.OK));
+            return Task.FromResult(new Option("Accept", OptionValue.OK));
+        }
+
+        public Task<DialogResult> Show(string key, object context)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

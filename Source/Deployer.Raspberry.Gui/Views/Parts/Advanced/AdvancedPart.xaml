@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="Deployer.Lumia.Gui.Views.Parts.Advanced.AdvancedPart"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:advanced="clr-namespace:Deployer.Lumia.Gui.Views.Parts.Advanced"
+             xmlns:ui="clr-namespace:Deployer.UI;assembly=Deployer.UI"
+             mc:Ignorable="d"
+             d:DesignHeight="546" d:DesignWidth="781" Padding="8"
+             DataContext="{Binding Source={StaticResource Locator}, Path=AdvancedViewModel}" mah:DialogParticipation.Register="{Binding}">
+
+    <StackPanel>
+        <GroupBox Header="Deployment" Padding="10" Margin="0,20,0,0">
+            <DockPanel>
+                <DockPanel.Resources>
+                    <Style TargetType="{x:Type GroupBox}" BasedOn="{StaticResource {x:Type GroupBox}}">
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="Background" Value="Transparent" />
+                    </Style>
+                </DockPanel.Resources>
+
+                <GroupBox Header="General">
+                    <StackPanel DockPanel.Dock="Left" >
+                        <CheckBox IsChecked="{Binding UseCompactDeployment, Mode=TwoWay}"
+                                  Margin="10"
+                                  ToolTip="Checking this will reduce the size of the Windows installation. However, the deployment process will take longer. It will help you save space on your device">
+                            <CheckBox.Content>
+                                <TextBlock Text="Use Compact Deployment" />
+                            </CheckBox.Content>
+                        </CheckBox>
+                        <CheckBox IsChecked="{Binding CleanDownloadedBeforeDeployment, Mode=TwoWay}"
+                                  Margin="10"
+                                  ToolTip="This will delete the files needed for deployment. Use this if you always want to get a fresh copy. Otherwise, the existing files will be used.">
+                            <CheckBox.Content>
+                                <TextBlock Text="Clean 'Downloaded' folder before deployment" TextWrapping="Wrap" />
+                            </CheckBox.Content>
+                        </CheckBox>
+                    </StackPanel>
+                </GroupBox>
+            </DockPanel>
+        </GroupBox>
+        
+        <GroupBox Header="Misc" Padding="10" Margin="0 20 0 0">
+            <UniformGrid Rows="1">
+                <UniformGrid.Resources>
+                    <Style TargetType="ui:IconButton">
+                        <Setter Property="Height" Value="50" />
+                        <Setter Property="Margin" Value="3"></Setter>
+                    </Style>
+                </UniformGrid.Resources>
+                <ui:IconButton Command="{Binding DeleteDownloadedWrapper.Command}"
+                               Content="Delete 'Downloaded' folder"
+                               IsBusy="{Binding DeleteDownloadedWrapper.IsExecuting}">
+                    <ui:IconButton.Icon>
+                        <iconPacks:MaterialLight Kind="Delete" Height="30" />
+                    </ui:IconButton.Icon>
+                </ui:IconButton>
+                
+                <ui:IconButton Command="{Binding CollectLogsCommmandWrapper.Command}"
+                               IsBusy="{Binding CollectLogsCommmandWrapper.IsExecuting}" ToolTip="Collects the logs from the Raspberry Pi">
+                    <ui:IconButton.Content>
+                        <TextBlock TextWrapping="Wrap">Collect logs</TextBlock>
+                    </ui:IconButton.Content>
+                    <ui:IconButton.Icon>
+                        <iconPacks:PackIconOcticons Kind="Package" Height="30" />
+                    </ui:IconButton.Icon>
+                </ui:IconButton>
+                
+            </UniformGrid>
+        </GroupBox>
+    </StackPanel>
+</UserControl>

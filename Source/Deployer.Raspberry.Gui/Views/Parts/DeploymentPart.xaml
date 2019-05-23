@@ -7,7 +7,7 @@
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:parts="clr-namespace:Deployer.Raspberry.Gui.Views.Parts"
              xmlns:Interactions="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:gui="clr-namespace:Deployer.Gui;assembly=Deployer.Gui"
+             xmlns:ui="clr-namespace:Deployer.UI;assembly=Deployer.UI"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              DataContext="{Binding Source={StaticResource Locator}, Path=DeploymentViewModel}" mah:DialogParticipation.Register="{Binding}">
@@ -21,7 +21,7 @@
         </Interactions:EventTrigger>
     </Interactions:Interaction.Triggers>
 
-    <Grid>
+    <Grid Visibility="{Binding FullInstallWrapper.IsExecuting, Converter={StaticResource CollapseOnTrue}}">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -43,19 +43,16 @@
                 <parts:WimOptionsPart  Margin="8" />
             </UniformGrid>
 
-            <gui:IconButton Grid.Row="1" VerticalAlignment="Center" Command="{Binding FullInstallWrapper.Command}"
+            <ui:IconButton Grid.Row="1" VerticalAlignment="Center" Command="{Binding FullInstallWrapper.Command}"
                                IsBusy="{Binding FullInstallWrapper.IsExecuting}" Content="Deploy"
                                Height="50"                               
                                HorizontalAlignment="Center"
                                ToolTip="Use this option to deploy Windows to your SD Card">
-                <gui:IconButton.Resources>
-
-                </gui:IconButton.Resources>
-                <gui:IconButton.Icon>
+                <ui:IconButton.Icon>
                     <iconPacks:PackIconFontAwesome
                         Kind="RocketSolid" Style="{StaticResource ButtonIconStyle}" />
-                </gui:IconButton.Icon>
-            </gui:IconButton>
+                </ui:IconButton.Icon>
+            </ui:IconButton>
 
         </Grid>
     </Grid>

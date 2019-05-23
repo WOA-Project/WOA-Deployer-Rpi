@@ -1,9 +1,7 @@
 ﻿using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
-using Deployer.Gui;
-using Deployer.Raspberry.Console;
 using Deployer.Raspberry.Gui.Views;
+using Deployer.UI;
 
 namespace Deployer.Raspberry.Gui
 {
@@ -36,8 +34,8 @@ namespace Deployer.Raspberry.Gui
 
         private void LaunchConsole(string[] args)
         {
-            ConsoleEmbedder.ExecuteInsideConsole(() => Task.Run(() => Program.Main(args)).Wait());
-            Shutdown();
+            //ConsoleEmbedder.ExecuteInsideConsole(() => Task.Run(() => Program.Main(args)).Wait());
+            //Shutdown();
         }
     }
 }

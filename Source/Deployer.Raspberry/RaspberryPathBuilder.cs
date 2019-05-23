@@ -1,48 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Deployer.Tasks;
 
 namespace Deployer.Raspberry
 {
     public class RaspberryPathBuilder : IPathBuilder
     {
-        private readonly IDeviceProvider deviceProvider;
+        private readonly IDeploymentContext context;
 
-        public RaspberryPathBuilder(IDeviceProvider deviceProvider)
+        public RaspberryPathBuilder(IDeploymentContext context)
         {
-            this.deviceProvider = deviceProvider;
+            this.context = context;
         }
 
         public async Task<string> Replace(string str)
         {
-            var deviceProviderDevice = deviceProvider.Device;
-
             IDictionary<string, Func<Task<string>>> mappings = new Dictionary<string, Func<Task<string>>>()
             {
-                { "WindowsARM", async () => (await deviceProviderDevice.GetWindowsVolume()).RootDir.Name},
-                { "BOOT", async () => (await deviceProviderDevice.GetBootVolume()).RootDir.Name},
+                { @"\[Windows\]", async () => (await context.Device.GetWindowsPartition()).Root },
+                { @"\[System\]", async () => (await context.Device.GetSystemPartition()).Root },
             };
 
-            var matching = mappings.Keys.FirstOrDefault(s => str.StartsWith(s, StringComparison.OrdinalIgnoreCase));
-            if (matching !=null)
+            foreach (var mapping in mappings)
             {
-                var replacement = await mappings[matching]();
-                var replaced = Regex.Replace(str, $"^{matching}", replacement, RegexOptions.IgnoreCase);
-                return Regex.Replace(replaced, $@"\\+", @"\", RegexOptions.IgnoreCase);
-            }
-
-            return str;            
-        }
-
-        private async Task<string> Replace(string str, string identifier, Func<Task<string>> func)
-        {
-            var matching = str.StartsWith(identifier, StringComparison.OrdinalIgnoreCase);
-            if (matching)
-            {
-                var replacement = await func();
-                return Regex.Replace(str, $"^{identifier}", replacement, RegexOptions.IgnoreCase);
+                if (Regex.IsMatch(str, mapping.Key))
+                {
+                    var mappingValue = await mapping.Value();
+                    str = Regex.Replace(str, $"^{mapping.Key}", mappingValue, RegexOptions.IgnoreCase);
+                    str = Regex.Replace(str, $@"\\+", @"\", RegexOptions.IgnoreCase);
+                }
             }
 
             return str;
