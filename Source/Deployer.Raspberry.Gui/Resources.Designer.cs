@@ -186,7 +186,7 @@ namespace Deployer.Raspberry.Gui {
         ///- Insert the Micro SD card into your Raspberry Pi
         ///- Turn it on and wait for the UEFI console to load
         ///- Type &quot;exit&quot; + press [ENTER] and you will be presented with the **UEFI interface**
-        ///- Go to the &apos;Boot Maintenance Manager&apos; menu and select &apos;Boot Options&apos;. Choose &apos;Change Boor Order&apos;
+        ///- Go to the &apos;Boot Maintenance Manager&apos; menu and select &apos;Boot Options&apos;. Choose &apos;Change Boot Order&apos;
         ///- Select &apos;Change the order&apos;
         ///- [rest of string was truncated]&quot;;.
         /// </summary>
