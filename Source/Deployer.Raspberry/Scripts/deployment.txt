@@ -2,7 +2,7 @@ DownloadUefi "Downloaded\UEFI"
 Fetch "http://ww1.microchip.com/downloads/en//softwarelibrary/obj-lan95xx-windows/lan9500-wdf-v18.12.18.0.zip" "Downloaded\Drivers\LAN95XX"
 Fetch "http://ww1.microchip.com/downloads/en//softwarelibrary/obj-lan78xx-windows/lan7800-wdf-v18.12.14.0.zip" "Downloaded\Drivers\LAN78XX"
 Fetch "https://pi64.win/wp-content/uploads/2019/02/usb-drivers.zip" "Downloaded\Drivers\USB"
-Fetch "https://github.com/worproject/RPi-Windows-Drivers/releases/download/v0.9/RPi3_Windows_ARM64_Drivers_v0.9.zip" "Downloaded\Drivers\BSP Drivers"
+
 Flash "Core\gpt.zip"
 ShowLicense "Downloaded\Drivers\USB\license.md"
 DeployWindows
